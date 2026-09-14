@@ -1,140 +1,166 @@
-'use client';
-
-import React from 'react';
-import Link from 'next/link';
-import { MapPin, Phone, Mail, CreditCard, ShieldCheck, Truck } from 'lucide-react';
+import Link from "next/link";
+import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-950 text-white mt-12">
-      {/* Top Banner - Features */}
-      <div className="bg-gray-900 py-8 border-b border-gray-800">
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
-            <div className="flex flex-col md:flex-row items-center gap-4 justify-center md:justify-start">
-              <div className="bg-gray-800 p-3 rounded-full shadow-sm text-primary">
-                <Truck size={24} />
-              </div>
-              <div>
-                <h4 className="font-bold text-white">Fast & Reliable Delivery</h4>
-                <p className="text-sm text-gray-400">Across Netherlands</p>
-              </div>
+    <footer className="w-full bg-surface-container-low pt-space-xl pb-space-lg text-on-surface shadow-[0_-1px_6px_rgba(0,0,0,0.02)]">
+      <div className="max-w-[1320px] mx-auto px-margin">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-space-xl">
+          <div className="flex flex-col gap-space-sm">
+            <div className="flex items-center gap-space-sm mb-space-xs">
+              <img
+                alt="ProbashMart Logo"
+                className="h-7 w-auto object-contain"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGlSFimrbEhMkUKxgE1bGjbFOBGxZs3-Jwn81z1XR-yxuTjrJqFgCqfO-Kn6lv8z9lDYwQkmSlgXKtapXDsSDbYNF2YD_1nZzSHlbswv2vd3oN7XXl8uUh3UiCYRqKEb2JfV4cib4-btEmDtloTkFPK4jjUgoTThr2q3psnEd8IGtai_FnIMUH4aCDwq_kgzUXdAwy4U-yKJunDV374tTQmtrd0frD5cPfn-Tq2aRu_Fr2nWURGOWveA"
+              />
+              <span className="font-headline-sm text-headline-sm text-primary">
+                প্রবাসমার্ট
+              </span>
             </div>
-            <div className="flex flex-col md:flex-row items-center gap-4 justify-center md:justify-start">
-              <div className="bg-gray-800 p-3 rounded-full shadow-sm text-primary">
-                <ShieldCheck size={24} />
-              </div>
-              <div>
-                <h4 className="font-bold text-white">Secure Payments</h4>
-                <p className="text-sm text-gray-400">100% secure transactions</p>
-              </div>
-            </div>
-            <div className="flex flex-col md:flex-row items-center gap-4 justify-center md:justify-start">
-              <div className="bg-gray-800 p-3 rounded-full shadow-sm text-primary">
-                <CreditCard size={24} />
-              </div>
-              <div>
-                <h4 className="font-bold text-white">Easy Returns</h4>
-                <p className="text-sm text-gray-400">Hassle-free return policy</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Main Footer Content */}
-      <div className="container mx-auto px-4 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Column 1: About */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="bg-primary p-2 rounded-lg">
-                <span className="font-bold text-xl text-white tracking-tight">BanglaStore</span>
-              </div>
-            </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mt-4">
-              Your one-stop destination for authentic Bangladeshi and South Asian groceries in the Netherlands. We bring the taste of home right to your doorstep.
+            <p className="font-body-md text-body-md text-on-surface-variant">
+              প্রবাসী ও দেশীয় গ্রাহকদের জন্য শতভাগ নিরাপদ ও খাঁটি দেশি পণ্যের
+              বিশ্বস্ত প্রতিষ্ঠান।
             </p>
-            <div className="flex items-center gap-3 pt-2">
-              <a href="#" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-primary hover:text-white transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-primary hover:text-white transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-primary hover:text-white transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-gray-800 flex items-center justify-center text-gray-300 hover:bg-primary hover:text-white transition">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-              </a>
+            <div className="flex flex-col gap-space-xs mt-space-xs font-body-sm text-body-sm text-on-surface-variant">
+              <div className="flex items-center gap-space-xs">
+                <span className="material-symbols-outlined text-[18px] text-primary">
+                  call
+                </span>
+                <span>০৯৬১২-৩৪৫৬৭৮ (সকাল ৯টা - রাত ১০টা)</span>
+              </div>
+              <div className="flex items-center gap-space-xs">
+                <span className="material-symbols-outlined text-[18px] text-primary">
+                  mail
+                </span>
+                <span>support@probashmart.com</span>
+              </div>
+              <div className="flex items-center gap-space-xs">
+                <span className="material-symbols-outlined text-[18px] text-primary">
+                  location_on
+                </span>
+                <span>হাউস-১২, রোড-০৫, ধানমন্ডি, ঢাকা-১২০৫</span>
+              </div>
             </div>
           </div>
-
-          {/* Column 2: Quick Links */}
-          <div>
-            <h4 className="font-bold text-white text-lg mb-5 relative inline-block">
-              Quick Links
-              <span className="absolute -bottom-1 left-0 w-1/2 h-0.5 bg-primary"></span>
+          <div className="flex flex-col gap-space-sm">
+            <h4 className="font-headline-sm text-headline-sm text-primary mb-space-xs">
+              কাস্টমার সার্ভিস
             </h4>
-            <ul className="space-y-3">
-              <li><Link href="/" className="text-gray-400 hover:text-primary transition text-sm flex items-center gap-2"><span className="text-primary text-xs">▸</span> Home</Link></li>
-              <li><Link href="/shop" className="text-gray-400 hover:text-primary transition text-sm flex items-center gap-2"><span className="text-primary text-xs">▸</span> All Products</Link></li>
-              <li><Link href="/category/fresh-vegetables" className="text-gray-400 hover:text-primary transition text-sm flex items-center gap-2"><span className="text-primary text-xs">▸</span> Fresh Vegetables</Link></li>
-              <li><Link href="/category/frozen-fish" className="text-gray-400 hover:text-primary transition text-sm flex items-center gap-2"><span className="text-primary text-xs">▸</span> Frozen Fish</Link></li>
-              <li><Link href="/deals" className="text-gray-400 hover:text-primary transition text-sm flex items-center gap-2"><span className="text-primary text-xs">▸</span> Special Deals</Link></li>
-            </ul>
+            <div className="flex flex-col gap-space-xs font-body-md text-body-md text-on-surface-variant">
+              <Link className="hover:text-primary transition-colors" href="/track">
+                অর্ডার ট্র্যাকিং
+              </Link>
+              <Link className="hover:text-primary transition-colors" href="/returns">
+                রিটার্ন ও রিফান্ড নীতি
+              </Link>
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/shipping"
+              >
+                শিপিং ও ডেলিভারি তথ্য
+              </Link>
+              <Link className="hover:text-primary transition-colors" href="/faq">
+                সাধারণ জিজ্ঞাসা (FAQ)
+              </Link>
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/support"
+              >
+                হেল্প ও সাপোর্ট সেন্টার
+              </Link>
+            </div>
           </div>
-
-          {/* Column 3: Customer Service */}
-          <div>
-            <h4 className="font-bold text-white text-lg mb-5 relative inline-block">
-              Customer Service
-              <span className="absolute -bottom-1 left-0 w-1/2 h-0.5 bg-primary"></span>
+          <div className="flex flex-col gap-space-sm">
+            <h4 className="font-headline-sm text-headline-sm text-primary mb-space-xs">
+              জনপ্রিয় ক্যাটাগরি
             </h4>
-            <ul className="space-y-3">
-              <li><Link href="/profile" className="text-gray-400 hover:text-primary transition text-sm flex items-center gap-2"><span className="text-primary text-xs">▸</span> My Account</Link></li>
-              <li><Link href="/orders" className="text-gray-400 hover:text-primary transition text-sm flex items-center gap-2"><span className="text-primary text-xs">▸</span> Track Order</Link></li>
-              <li><Link href="/faq" className="text-gray-400 hover:text-primary transition text-sm flex items-center gap-2"><span className="text-primary text-xs">▸</span> FAQ</Link></li>
-              <li><Link href="/returns" className="text-gray-400 hover:text-primary transition text-sm flex items-center gap-2"><span className="text-primary text-xs">▸</span> Return Policy</Link></li>
-              <li><Link href="/contact" className="text-gray-400 hover:text-primary transition text-sm flex items-center gap-2"><span className="text-primary text-xs">▸</span> Contact Support</Link></li>
-            </ul>
+            <div className="flex flex-col gap-space-xs font-body-md text-body-md text-on-surface-variant">
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/category/hilsa"
+              >
+                চাঁদপুরের পদ্মার ইলিশ
+              </Link>
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/category/honey"
+              >
+                সুন্দরবনের খাঁটি মধু ও ঘি
+              </Link>
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/category/mangoes"
+              >
+                রাজশাহীর হিমসাগর ও ল্যাংড়া আম
+              </Link>
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/category/dates"
+              >
+                মদিনার প্রিমিয়াম আজওয়া খেজুর
+              </Link>
+              <Link
+                className="hover:text-primary transition-colors"
+                href="/category/heritage"
+              >
+                জামদানি শাড়ি ও কুটির শিল্প
+              </Link>
+            </div>
           </div>
-
-          {/* Column 4: Contact Info */}
-          <div>
-            <h4 className="font-bold text-white text-lg mb-5 relative inline-block">
-              Contact Info
-              <span className="absolute -bottom-1 left-0 w-1/2 h-0.5 bg-primary"></span>
+          <div className="flex flex-col gap-space-sm">
+            <h4 className="font-headline-sm text-headline-sm text-primary mb-space-xs">
+              পেমেন্টের মাধ্যমসমূহ
             </h4>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin size={20} className="text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-gray-400 text-sm">123 Market Street, <br />1012 AB Amsterdam, <br />Netherlands</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={20} className="text-primary flex-shrink-0" />
-                <span className="text-gray-400 text-sm">+31 20 123 4567</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail size={20} className="text-primary flex-shrink-0" />
-                <span className="text-gray-400 text-sm">support@banglastore.nl</span>
-              </li>
-            </ul>
+            <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-xs">
+              নিরাপদ ও সহজ পেমেন্ট গেটওয়ে দিয়ে কেনাকাটা করুন:
+            </p>
+            <div className="flex flex-wrap gap-space-xs">
+              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
+                বিকাশ
+              </span>
+              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
+                নগদ
+              </span>
+              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
+                রকেট
+              </span>
+              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
+                ভিসা কার্ড
+              </span>
+              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
+                মাস্টারকার্ড
+              </span>
+              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
+                ক্যাশ অন ডেলিভারি
+              </span>
+            </div>
+            <div className="mt-space-md p-space-sm bg-surface-container-high rounded-lg flex items-center gap-space-sm">
+              <span className="material-symbols-outlined text-primary text-[24px]">
+                verified_user
+              </span>
+              <div className="flex flex-col">
+                <span className="font-label-md text-label-md text-on-surface font-bold">
+                  ১০০% খাঁটি পণ্য নিশ্চিত
+                </span>
+                <span className="font-label-sm text-label-sm text-on-surface-variant">
+                  প্রবাসীদের নির্ভরযোগ্য শপ
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Bottom Bar */}
-      <div className="bg-black py-6">
-        <div className="container mx-auto px-4 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400 text-sm text-center md:text-left">
-            &copy; {new Date().getFullYear()} Bangla Store. All rights reserved.
-          </p>
-          <div className="flex items-center gap-4 text-sm text-gray-400">
-            <Link href="/privacy" className="hover:text-white transition">Privacy Policy</Link>
-            <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
-            <Link href="/terms" className="hover:text-white transition">Terms of Service</Link>
+        <div className="pt-space-md border-t border-outline-variant/30 flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
+          <span>© ২০২৫ প্রবাসমার্ট লিমিটেড। সর্বস্বত্ব সংরক্ষিত। দেশি পণ্যে আস্থা।</span>
+          <div className="flex items-center gap-space-md">
+            <Link className="hover:text-primary transition-colors" href="/terms">
+              শর্তাবলী
+            </Link>
+            <Link
+              className="hover:text-primary transition-colors"
+              href="/privacy"
+            >
+              গোপনীয়তা নীতি
+            </Link>
           </div>
         </div>
       </div>

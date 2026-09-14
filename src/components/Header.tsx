@@ -1,264 +1,185 @@
-'use client';
-
-import React, { useState } from 'react';
-import { Search, User, Heart, ShoppingCart, Menu, ChevronDown, MapPin, Truck, Lock, Home, ShoppingBag, X } from 'lucide-react';
-import { useCart } from '../context/CartContext';
-import { useAuth } from '../context/AuthContext';
-import { useWishlist } from '../context/WishlistContext';
-import { categories } from '../data/mockData';
-import CartDrawer from './CartDrawer';
-import AuthModal from './AuthModal';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import React from "react";
 
 export default function Header() {
-  const { cartCount, cartTotal } = useCart();
-  const { wishlistCount } = useWishlist();
-  const { isAuthenticated, user } = useAuth();
-  const pathname = usePathname();
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobileCategoryDropdownOpen, setIsMobileCategoryDropdownOpen] = useState(false);
-
   return (
-    <header className="w-full flex flex-col relative md:sticky top-0 z-40 bg-[#032B18] text-white">
-      {/* Desktop Main Header */}
-      <div className="py-5 px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto w-full">
-        {/* Logo and Hamburger Menu */}
-        <div className="flex items-center gap-3">
-          <button className="md:hidden text-white hover:text-gray-200 transition" onClick={() => setIsMobileMenuOpen(true)}>
-            <Menu size={24} />
-          </button>
-          <Link href="/" className="flex items-center gap-2 text-white font-bold text-2xl">
-            <ShoppingCart className="text-[#84CC16]" size={28} />
-            <span className="leading-none tracking-tight">BanglaStore</span>
-          </Link>
-        </div>
-
-        {/* Desktop Search */}
-        <form action="/search" className="hidden lg:flex flex-1 max-w-2xl mx-12 bg-[#064027] rounded-full px-2 py-1 items-center border border-white/10 focus-within:border-[#84CC16]/50 transition-colors">
-          <div 
-            className="flex items-center px-4 border-r border-white/20 cursor-pointer group"
-            onClick={() => setIsCategoryDropdownOpen(!isCategoryDropdownOpen)}
-          >
-            <span className="text-sm text-gray-300 mr-2 group-hover:text-white transition">All categories</span>
-            <ChevronDown size={14} className="text-gray-300 group-hover:text-white transition" />
+    <header className="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+      <div className="bg-primary text-on-primary py-1 px-margin">
+        <div className="max-w-[1320px] mx-auto flex items-center justify-between text-body-sm font-body-sm">
+          <span>সারা বাংলাদেশে ক্যাশ অন ডেলিভারি সুবিধা | হেল্পলাইন: ০৯৬১২-৩৪৫৬৭৮</span>
+          <div className="flex items-center gap-gutter">
+            <span>ভাষা: বাংলা</span>
+            <span className="hidden sm:inline">মুদ্রা: ৳ BDT</span>
           </div>
-          {isCategoryDropdownOpen && (
-            <div className="absolute top-16 left-[30%] w-64 bg-white border border-gray-100 shadow-xl rounded-lg z-50 py-2 text-gray-800">
-              {categories.map((cat) => (
-                <Link 
-                  key={cat.id} 
-                  href={`/category/${cat.name.toLowerCase()}`}
-                  onClick={() => setIsCategoryDropdownOpen(false)}
-                  className="block px-4 py-2 text-sm hover:bg-gray-50 hover:text-primary transition"
-                >
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
-          )}
-          <input
-            type="text"
-            name="q"
-            placeholder="Search for products..."
-            className="bg-transparent flex-1 px-4 text-white placeholder-gray-400 focus:outline-none text-sm"
+        </div>
+      </div>
+      <div className="h-20 max-w-[1320px] mx-auto px-margin flex items-center justify-between gap-gutter">
+        <div className="flex items-center gap-space-md shrink-0">
+          <img
+            alt="ProbashMart Logo"
+            className="h-8 w-auto object-contain"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGlSFimrbEhMkUKxgE1bGjbFOBGxZs3-Jwn81z1XR-yxuTjrJqFgCqfO-Kn6lv8z9lDYwQkmSlgXKtapXDsSDbYNF2YD_1nZzSHlbswv2vd3oN7XXl8uUh3UiCYRqKEb2JfV4cib4-btEmDtloTkFPK4jjUgoTThr2q3psnEd8IGtai_FnIMUH4aCDwq_kgzUXdAwy4U-yKJunDV374tTQmtrd0frD5cPfn-Tq2aRu_Fr2nWURGOWveA"
           />
-          <button type="submit" className="p-2 text-white/80 hover:text-white transition">
-            <Search size={20} />
-          </button>
-        </form>
-
-        {/* Desktop Icons */}
-        <div className="hidden md:flex items-center space-x-6 text-white/90">
-          <Link href="/wishlist" className="relative hover:text-[#84CC16] transition cursor-pointer">
-            <Heart size={22} />
-            {wishlistCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-[#84CC16] text-[#032B18] text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
-                {wishlistCount}
-              </span>
-            )}
-          </Link>
-          <div 
-            className="relative hover:text-[#84CC16] transition cursor-pointer"
-            onClick={() => setIsCartOpen(true)}
-          >
-            <ShoppingCart size={22} />
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-[#84CC16] text-[#032B18] text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
-                {cartCount}
-              </span>
-            )}
-          </div>
-          {isAuthenticated ? (
-            <Link href="/profile" className="hover:text-[#84CC16] transition cursor-pointer flex items-center gap-2">
-              <User size={22} />
-            </Link>
-          ) : (
-            <div onClick={() => setIsAuthOpen(true)} className="hover:text-[#84CC16] transition cursor-pointer">
-              <User size={22} />
-            </div>
-          )}
-        </div>
-
-        {/* Mobile top-right icons (cart & search toggle) */}
-        <div className="flex md:hidden items-center gap-4">
-          <div onClick={() => setIsCartOpen(true)} className="relative text-white">
-            <ShoppingCart size={24} />
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-[#84CC16] text-[#032B18] text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
-                {cartCount}
-              </span>
-            )}
+          <div className="flex flex-col">
+            <span className="font-headline-sm text-headline-sm text-primary tracking-tight">
+              প্রবাসমার্ট
+            </span>
+            <span className="font-label-sm text-label-sm text-on-surface-variant">
+              খাঁটি পণ্যের বিশ্বস্ত ঠিকানা
+            </span>
           </div>
         </div>
-      </div>
-
-      {/* Desktop Navigation Links */}
-      <div className="hidden lg:flex justify-center items-center pb-4 w-full">
-        <nav className="flex items-center space-x-8 text-sm font-medium text-gray-300">
-          <Link href="/" className={`pb-1 border-b-2 ${pathname === '/' ? 'text-white border-[#84CC16]' : 'border-transparent hover:text-white hover:border-white/30 transition'}`}>Home</Link>
-          <Link href="/shop" className={`pb-1 border-b-2 ${pathname === '/shop' ? 'text-white border-[#84CC16]' : 'border-transparent hover:text-white hover:border-white/30 transition'}`}>Shop</Link>
-          {categories.slice(0, 5).map((cat) => (
-            <Link key={cat.id} href={`/category/${cat.name.toLowerCase()}`} className={`pb-1 border-b-2 ${pathname === `/category/${cat.name.toLowerCase()}` ? 'text-white border-[#84CC16]' : 'border-transparent hover:text-white hover:border-white/30 transition'}`}>
-              {cat.name}
-            </Link>
-          ))}
-        </nav>
-      </div>
-
-      {/* Mobile Search Bar (Only visible on mobile) */}
-      <div className="md:hidden bg-[#064027] px-4 py-3">
-        <form action="/search" className="flex w-full relative bg-white/10 rounded-lg p-1 border border-white/20 focus-within:border-[#84CC16]/50">
-          <div 
-            className="flex items-center px-3 border-r border-white/20 cursor-pointer group"
-            onClick={() => setIsMobileCategoryDropdownOpen(!isMobileCategoryDropdownOpen)}
-          >
-            <span className="text-xs text-gray-300 mr-1 group-hover:text-white transition">All</span>
-            <ChevronDown size={14} className="text-gray-300 group-hover:text-white transition flex-shrink-0" />
-          </div>
-          {isMobileCategoryDropdownOpen && (
-            <div className="absolute top-12 left-0 w-64 bg-white border border-gray-100 shadow-xl rounded-lg z-50 py-2 text-gray-800">
-              {categories.map((cat) => (
-                <Link 
-                  key={cat.id} 
-                  href={`/category/${cat.name.toLowerCase()}`}
-                  onClick={() => setIsMobileCategoryDropdownOpen(false)}
-                  className="block px-4 py-2 text-sm hover:bg-gray-50 hover:text-primary transition"
-                >
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
-          )}
+        <div className="flex-1 max-w-[580px] hidden md:flex items-center bg-surface-container-low rounded-lg p-1 pl-space-md">
+          <span className="material-symbols-outlined text-outline mr-space-sm">
+            search
+          </span>
           <input
+            className="bg-transparent w-full focus:outline-none font-body-md text-body-md text-on-surface placeholder:text-outline"
+            placeholder="পণ্য খুঁজুন (যেমন: ইলিশ, খাঁটি মধু, সুন্দরবনের ঘি)..."
             type="text"
-            name="q"
-            placeholder="Search products..."
-            className="w-full bg-transparent py-1.5 px-4 focus:outline-none text-white placeholder-gray-400 text-sm"
           />
-          <button type="submit" className="text-white/80 px-3 hover:text-white transition flex items-center justify-center">
-            <Search size={18} />
+          <button className="bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg px-space-lg py-space-sm rounded-lg flex items-center gap-space-xs transition-colors shrink-0">
+            <span className="material-symbols-outlined text-[18px]">search</span>
+            <span>খুঁজুন</span>
           </button>
-        </form>
-      </div>
-
-      {/* Mobile Bottom Navigation Bar (Floating Pill) */}
-      <div className="md:hidden fixed bottom-3 left-1/2 -translate-x-1/2 w-max min-w-[300px] bg-white/95 backdrop-blur-md border border-gray-200/50 rounded-full z-50 flex justify-center items-center gap-5 py-2.5 px-6 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-        <Link href="/" className={`flex flex-col items-center gap-1 p-2 ${pathname === '/' ? 'text-[#006838]' : 'text-gray-400 hover:text-gray-600 transition-colors'}`}>
-          <div className="w-6 h-6 flex justify-center"><Home size={22} strokeWidth={pathname === '/' ? 2.5 : 2} /></div>
-          <span className="text-[10px] font-medium text-gray-800">Home</span>
-        </Link>
-        <Link href="/search" className={`flex flex-col items-center gap-1 p-2 ${pathname === '/search' ? 'text-[#006838]' : 'text-gray-400 hover:text-gray-600 transition-colors'}`}>
-          <div className="w-6 h-6 flex justify-center"><Search size={22} strokeWidth={pathname === '/search' ? 2.5 : 2} /></div>
-          <span className="text-[10px] font-medium text-gray-800">Search</span>
-        </Link>
-        <button 
-          onClick={() => setIsCartOpen(true)}
-          className="flex flex-col items-center gap-1 p-2 text-gray-400 hover:text-gray-600 transition-colors relative"
-        >
-          <div className="relative w-6 h-6 flex justify-center">
-            <ShoppingBag size={22} strokeWidth={2} />
-            {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1.5 bg-red-500 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-sm">
-                {cartCount}
-              </span>
-            )}
-          </div>
-          <span className="text-[10px] font-medium text-gray-800">Cart</span>
-        </button>
-        <Link href="/wishlist" className={`flex flex-col items-center gap-1 p-2 relative ${pathname === '/wishlist' ? 'text-[#006838]' : 'text-gray-400 hover:text-gray-600 transition-colors'}`}>
-          <div className="relative w-6 h-6 flex justify-center">
-            <Heart size={22} strokeWidth={pathname === '/wishlist' ? 2.5 : 2} />
-            {wishlistCount > 0 && (
-              <span className="absolute -top-1 -right-1.5 bg-[#006838] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-sm">
-                {wishlistCount}
-              </span>
-            )}
-          </div>
-          <span className="text-[10px] font-medium text-gray-800">Wishlist</span>
-        </Link>
-        {isAuthenticated ? (
-          <Link href="/profile" className={`flex flex-col items-center gap-1 p-2 ${pathname === '/profile' ? 'text-[#006838]' : 'text-gray-400 hover:text-gray-600 transition-colors'}`}>
-            <div className="w-6 h-6 flex justify-center"><User size={22} strokeWidth={pathname === '/profile' ? 2.5 : 2} /></div>
-            <span className="text-[10px] font-medium text-gray-800">Profile</span>
-          </Link>
-        ) : (
-          <button 
-            onClick={() => setIsAuthOpen(true)}
-            className="flex flex-col items-center gap-1 p-2 text-gray-400 hover:text-gray-600 transition-colors"
+        </div>
+        <div className="flex items-center gap-space-lg shrink-0">
+          <Link
+            className="hidden lg:flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors"
+            href="/support"
           >
-            <div className="w-6 h-6 flex justify-center"><User size={22} strokeWidth={2} /></div>
-            <span className="text-[10px] font-medium text-gray-800">Login</span>
-          </button>
-        )}
-      </div>
-      
-      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-      <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
-      
-      {/* Mobile Sidebar Menu */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 flex md:hidden">
-          <div className="fixed inset-0 bg-black/50" onClick={() => setIsMobileMenuOpen(false)}></div>
-          <div className="relative w-64 max-w-sm bg-white h-full shadow-xl flex flex-col">
-            <div className="flex items-center justify-between p-5 border-b border-gray-100 bg-[#032B18] text-white">
-              <span className="font-bold text-lg">Menu</span>
-              <button onClick={() => setIsMobileMenuOpen(false)} className="text-white hover:text-gray-300">
-                <X size={24} />
-              </button>
+            <span className="material-symbols-outlined text-[20px]">
+              support_agent
+            </span>
+            <div className="flex flex-col text-left">
+              <span className="font-label-sm text-label-sm text-on-surface-variant">
+                সহায়তা
+              </span>
+              <span className="font-label-md text-label-md text-on-surface font-semibold">
+                হেল্প ডেস্ক
+              </span>
             </div>
-            <div className="overflow-y-auto flex-1 p-4 pb-20">
-              <div className="space-y-4">
-                <div>
-                  <h3 className="text-xs font-semibold text-gray-400 mb-3 uppercase tracking-wider">Main</h3>
-                  <div className="space-y-1">
-                    <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-md transition font-medium">Home</Link>
-                    <Link href="/shop" onClick={() => setIsMobileMenuOpen(false)} className="block px-3 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-md transition font-medium">Shop</Link>
-                  </div>
-                </div>
-                <div>
-                  <h3 className="text-xs font-semibold text-gray-400 mb-3 uppercase tracking-wider">Categories</h3>
-                  <div className="space-y-1">
-                    {categories.map((cat) => (
-                      <Link 
-                        key={cat.id} 
-                        href={`/category/${cat.name.toLowerCase()}`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="block px-3 py-2.5 text-gray-700 hover:bg-gray-50 hover:text-primary rounded-md transition font-medium"
-                      >
-                        {cat.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
+          </Link>
+          <Link
+            className="hidden xl:flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors"
+            href="/track"
+          >
+            <span className="material-symbols-outlined text-[20px]">
+              local_shipping
+            </span>
+            <div className="flex flex-col text-left">
+              <span className="font-label-sm text-label-sm text-on-surface-variant">
+                ট্র্যাকিং
+              </span>
+              <span className="font-label-md text-label-md text-on-surface font-semibold">
+                অর্ডার ট্র্যাক
+              </span>
+            </div>
+          </Link>
+          <Link
+            className="flex items-center gap-space-sm bg-surface-container-low hover:bg-surface-container px-space-md py-space-sm rounded-lg transition-colors"
+            href="/cart"
+          >
+            <div className="relative flex items-center">
+              <span className="material-symbols-outlined text-primary text-[24px]">
+                shopping_bag
+              </span>
+              <span className="absolute -top-2 -right-2 bg-secondary text-on-secondary font-label-sm text-[10px] px-1.5 py-0.5 rounded-full font-bold">
+                ৩
+              </span>
+            </div>
+            <div className="hidden sm:flex flex-col text-left">
+              <span className="font-label-sm text-label-sm text-on-surface-variant">
+                ৩টি পণ্য
+              </span>
+              <span className="font-label-md text-label-md text-primary font-bold">
+                ৳৩,৪২০
+              </span>
+            </div>
+          </Link>
+          <div className="flex items-center gap-space-sm">
+            <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+              <span className="material-symbols-outlined text-on-primary text-[18px]">
+                person
+              </span>
+            </div>
+            <div className="hidden sm:flex flex-col text-left">
+              <span className="font-label-sm text-label-sm text-on-surface-variant">
+                স্বাগতম
+              </span>
+              <Link
+                className="font-label-md text-label-md text-on-surface font-semibold hover:text-primary transition-colors"
+                href="/login"
+              >
+                লগইন / সাইন আপ
+              </Link>
             </div>
           </div>
         </div>
-      )}
+      </div>
+      <div className="bg-surface-container-low shadow-[0_1px_4px_rgba(0,0,0,0.02)]">
+        <div className="max-w-[1320px] mx-auto px-margin flex items-center justify-between gap-gutter">
+          <div className="flex items-center bg-primary text-on-primary px-space-md py-2.5 rounded-t-lg font-label-lg text-label-lg gap-space-sm cursor-pointer hover:bg-primary-container transition-colors shrink-0">
+            <span className="material-symbols-outlined text-[20px]">
+              grid_view
+            </span>
+            <span>সব ক্যাটাগরি</span>
+            <span className="material-symbols-outlined text-[16px]">
+              expand_more
+            </span>
+          </div>
+          <nav className="flex-1 flex items-center overflow-x-auto gap-space-lg py-2.5 custom-scrollbar">
+            <Link
+              className="shrink-0 transition-colors py-1 text-primary font-bold border-b-2 border-primary"
+              href="/"
+            >
+              হোম
+            </Link>
+            <Link
+              className="shrink-0 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors py-1"
+              href="/products"
+            >
+              সব পণ্য
+            </Link>
+            <Link
+              className="shrink-0 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors py-1"
+              href="/category/fish"
+            >
+              ইলিশ ও মাছ
+            </Link>
+            <Link
+              className="shrink-0 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors py-1"
+              href="/category/fruits"
+            >
+              আম ও মৌসুমি ফল
+            </Link>
+            <Link
+              className="shrink-0 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors py-1"
+              href="/category/honey"
+            >
+              খাঁটি মধু ও ঘি
+            </Link>
+            <Link
+              className="shrink-0 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors py-1"
+              href="/category/dates"
+            >
+              খেজুর ও ড্রাই ফ্রুটস
+            </Link>
+            <Link
+              className="shrink-0 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors py-1"
+              href="/category/heritage"
+            >
+              হাতে তৈরি ঐতিহ্য
+            </Link>
+            <Link
+              className="shrink-0 font-label-md text-label-md text-secondary font-bold hover:text-secondary-container transition-colors py-1"
+              href="/offers"
+            >
+              ধামাকা অফার
+            </Link>
+          </nav>
+        </div>
+      </div>
     </header>
   );
 }
