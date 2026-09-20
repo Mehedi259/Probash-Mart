@@ -10,7 +10,7 @@ export default function TermsPage() {
         <h1 className="text-3xl font-bold text-gray-800 mb-6">Terms of Service</h1>
         <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 prose max-w-none text-gray-600">
           <p className="mb-4">Last updated: {new Date().toLocaleDateString()}</p>
-          <p className="mb-4">Welcome to Bangla Store! By accessing or using our website, you agree to be bound by these Terms of Service.</p>
+          <p className="mb-4">Welcome to Probash Mart! By accessing or using our website, you agree to be bound by these Terms of Service.</p>
           <h2 className="text-xl font-bold text-gray-800 mt-6 mb-2">1. User Accounts</h2>
           <p className="mb-4">You must create an account to place orders. You are responsible for maintaining the confidentiality of your account credentials.</p>
           <h2 className="text-xl font-bold text-gray-800 mt-6 mb-2">2. Pricing and Availability</h2>

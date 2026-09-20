@@ -23,10 +23,10 @@ export default function Features() {
         </button>
       </div>
 
-      {/* Why Choose Bangla Store */}
+      {/* Why Choose Probash Mart */}
       <div className="text-center mb-10">
         <h2 className="text-2xl font-bold text-gray-800 relative inline-block">
-          <span className="bg-white px-4 relative z-10">Why Choose Bangla Store?</span>
+          <span className="bg-white px-4 relative z-10">Why Choose Probash Mart?</span>
           <div className="absolute top-1/2 left-[-50px] right-[-50px] h-[1px] bg-gray-200 z-0"></div>
         </h2>
       </div>
