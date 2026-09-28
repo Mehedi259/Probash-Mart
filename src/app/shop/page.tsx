@@ -1,96 +1,70 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { Product } from '@/types';
-import { ShoppingCart, Heart } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
-import { useWishlist } from '@/context/WishlistContext';
-import Link from 'next/link';
+"use client";
+import React from "react";
+import { featuredProducts } from "@/data/mockData";
+import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
+import Link from "next/link";
+import { ShoppingCart, Heart, Package } from "lucide-react";
 
 export default function ShopPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(`/api/products`);
-        if (res.ok) {
-          const data = await res.json();
-          setProducts(data);
-        }
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
   return (
-    <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-      <Header />
-      
-      <main className="flex-grow container mx-auto px-4 py-8">
+    <main className="min-h-screen pt-32 md:pt-44 pb-28 md:pb-16 bg-[#F9FAFB]">
+      <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <Link href="/" className="text-sm text-gray-500 hover:text-primary mb-2 inline-block">← Back to Home</Link>
-          <h1 className="text-3xl font-bold text-gray-800 capitalize">All Products</h1>
-          <p className="text-gray-500 mt-2">Showing all available products in the store</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 flex items-center gap-2 mb-2">
+            <Package className="text-primary" /> সব পণ্য
+          </h1>
+          <p className="text-gray-500">{featuredProducts.length}+ প্রিমিয়াম দেশি পণ্য</p>
         </div>
 
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-          </div>
-        ) : products.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {products.map((product) => (
-              <div key={product.id} className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition flex flex-col relative group">
-                <button 
-                  onClick={() => isInWishlist(product.id) ? removeFromWishlist(product.id) : addToWishlist(product)}
-                  className="absolute top-2 right-2 p-1.5 bg-white rounded-full shadow-sm hover:shadow-md hover:text-primary transition z-10"
-                >
-                  <Heart size={16} className={isInWishlist(product.id) ? "fill-primary text-primary" : "text-gray-400"} />
-                </button>
-                <Link href={`/product/${product.id}`} className="block h-40 w-full relative mb-4">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300" />
-                </Link>
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <Link href={`/product/${product.id}`} className="hover:text-primary transition">
-                      <h3 className="font-semibold text-gray-800 text-sm leading-tight mb-1">{product.name}</h3>
-                    </Link>
-                    <span className="text-xs text-gray-500">{product.weight}</span>
-                  </div>
-                  <div className="mt-4 space-y-3">
-                    <div className="font-bold text-lg">€{product.price.toFixed(2)}</div>
-                    <button 
-                      onClick={() => addToCart(product)}
-                      className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 rounded-md flex items-center justify-center gap-2 transition text-sm"
-                    >
-                      <ShoppingCart size={16} /> Add to Cart
-                    </button>
-                  </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+          {featuredProducts.map((product) => (
+            <div
+              key={product.id}
+              className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col relative group overflow-hidden"
+            >
+              {product.isBestSeller && (
+                <span className="absolute top-2 left-0 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded-r-md z-10 text-gray-800">
+                  Best Seller
+                </span>
+              )}
+              <button
+                onClick={() => isInWishlist(product.id) ? removeFromWishlist(product.id) : addToWishlist(product)}
+                className="absolute top-2 right-2 p-1.5 bg-white rounded-full shadow-sm hover:shadow-md hover:text-primary transition z-10"
+              >
+                <Heart size={14} className={isInWishlist(product.id) ? "fill-primary text-primary" : "text-gray-300"} />
+              </button>
+              <Link href={`/product/${product.id}`} className="h-36 w-full flex items-center justify-center bg-white p-3 rounded-t-xl overflow-hidden">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300"
+                />
+              </Link>
+              <div className="flex-1 flex flex-col justify-between p-3 pt-2">
+                <div>
+                  <Link href={`/product/${product.id}`} className="hover:text-primary transition">
+                    <h3 className="font-semibold text-gray-800 text-xs leading-tight mb-0.5 line-clamp-2 min-h-[32px]">{product.name}</h3>
+                  </Link>
+                  {product.weight && <span className="text-[10px] text-gray-400">{product.weight}</span>}
+                </div>
+                <div className="mt-2 space-y-2">
+                  <div className="font-bold text-sm text-primary">৳{product.price.toFixed(2)}</div>
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="w-full bg-primary hover:opacity-90 text-white font-medium py-1.5 rounded-lg flex items-center justify-center gap-1 transition text-xs"
+                  >
+                    <ShoppingCart size={12} /> কার্টে যোগ
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="bg-white p-12 text-center rounded-xl shadow-sm border border-gray-100">
-            <h2 className="text-xl font-medium text-gray-700">No products found.</h2>
-            <Link href="/" className="text-primary hover:underline mt-4 inline-block font-medium">Return Home</Link>
-          </div>
-        )}
-      </main>
-
-      <Footer />
-    </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </main>
   );
 }

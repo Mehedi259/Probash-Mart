@@ -1,184 +1,192 @@
 "use client";
 import React, { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, notFound } from "next/navigation";
+import { featuredProducts } from "@/data/mockData";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
+import Link from "next/link";
+import { ShoppingCart, Heart, ArrowLeft, Package, CheckCircle, Truck, RotateCcw, Plus, Minus } from "lucide-react";
 
-const productDB: Record<string, any> = {
-  "ghee-500": {
-    id: "ghee-500",
-    name: "খাঁটি গাওয়া ঘি (৫০০ গ্রাম)",
-    brand: "সিরাজগঞ্জের গাওয়া",
-    description: "ঘরোয়া পদ্ধতিতে তৈরি সুস্বাদু ও দানাদার খাঁটি ঘি। ১০০% নির্ভেজাল এবং স্বাস্থ্যসম্মত। সরাসরি গ্রাম থেকে সংগৃহীত।",
-    price: 780,
-    images: [
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCP1Kd-DIOSd8NlC014M4pQWMnI8YN5AIWfURsJaYH0pdBZJhKWsZ0QARF2AWfH5h9rJWszdiHwDSCEvUhUFX_pMnK-5HwvR_pZa8_0RHwgZkaL2gJPiVi7rQthOMAfmcBmWRHPgBQDsfnzmFTgg647yER1FQR_ZsqVPz7gCV1fp44M6m9Afz8r9tGxXICv3NRNSiYBEOg2X0UhxLONLZguVO-UOhRj-Ylfcs8GcvsT-hxOIubLB9bYLQ",
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDszwcOx9rkpPchJi9VTVjEXTcg2B5xhNx1BdqQVo9Tr91N0448eq9du9ZUp_NFkuMt7kf2T0whG6ct5GQmlEfRLxIsuk69huaeXPYI9FGX7XFoUWFfp4A7gB63N1lUxhA4du3MdqmDHYeIDQlMNcQSOKHILSeIu5_z_sA0IiLm_uXk3zNBcIPhuI4IOxolClw4nkNDdzOwZ7NvuFrgtpogHvDEwJ082A8iVuHocJH0UX1E-agrbG1a7w"
-    ],
-    category: "khanti-deshi",
-  },
-  "mustard-oil-1l": {
-    id: "mustard-oil-1l",
-    name: "পাহাড়ি হলুদ ও সরিষার তেল (১ লিটার)",
-    brand: "ঘানি ভাঙা তেল",
-    description: "কাঠের ঘানিতে ভাঙা খাঁটি ঝাঁঝালো দেশি সরিষার তেল। পাহাড়ি সরিষা থেকে তৈরি। কোন রাসায়নিক মিশ্রিত নেই।",
-    price: 340,
-    images: [
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCduxt6IVUHKPWj26_7q0pwhEnjmuPTYrCfj5ke8f9CxxVo84n0BdF2m1VMd5mpC_ud22qG7NmaYh1-56_Q4Rq4mLaujNEGlOYRE1uuE90UX0If1EMiDQk8K6r8SIXLjaKm9teInoTvvyxkeQWs763nNjjIkoFBJgMoXqLqSOF-VwSJh0EMVGCD7_XPryV2ghYEAyY3W7okFtZA9rPfuNYXxgRMOX353mZvo8HN2I0lwj_afxO4yW998A",
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAGPEaDMFD0Lul-J6uYWPvCRxwf-CDPeB7V0Izo30oHY3uMyFh-m6UfIc-pFBphnm2L4Dtwd_qOTWHDpNUiGBBjC1U-xCJDCORwaTCrPYSI7h8fsMdy5JANTvHrvIWhjuOVJRmt4_qsYqv4MfOdGp3-dXSOQ-amhtGsEgvTU-io0tqEff8D4J_UbmBv0QbYaTOsGWJi2VZHSu79bAiu5-_0sCQ9P2iOHVbZPCd6Kv75kAU-_1nV6XM8fQ"
-    ],
-    category: "khanti-deshi",
-  },
-  "jamdani-saree": {
-    id: "jamdani-saree",
-    name: "হাতে বোনা জামদানি শাড়ি",
-    brand: "রূপগঞ্জ তাঁতিদের কাজ",
-    description: "আভিজাত্য ও ঐতিহ্যের নিখুঁত হাতে বোনা শিল্পকর্ম। নিখুঁত সুতোর কাজ ও আকর্ষণীয় রং। বিশেষ উৎসবের জন্য।",
-    price: 4500,
-    images: [
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAeHkghiulnhlicQeP7BpwQQECo7R28zHQ7PPPeRQ9ZykhEWbQ0pBWag6yyfCbvIr4UsIFHkPxxM_C_rm_taKbqeh1cMOhYVrITr8UmjP-Jjj7ayip9uxYJ3xs76sIexPV7OFuAt49_ev2FA4xv1Cc63cJORoRUP0590HIXrfpjPNtAvCPOSuj2L5iSWyO1bvophYtsJ96JSlO9JB48KWoC20HtEQdJFvRqQR27cJLShgY4ZpE8Z0NChQ",
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDszwcOx9rkpPchJi9VTVjEXTcg2B5xhNx1BdqQVo9Tr91N0448eq9du9ZUp_NFkuMt7kf2T0whG6ct5GQmlEfRLxIsuk69huaeXPYI9FGX7XFoUWFfp4A7gB63N1lUxhA4du3MdqmDHYeIDQlMNcQSOKHILSeIu5_z_sA0IiLm_uXk3zNBcIPhuI4IOxolClw4nkNDdzOwZ7NvuFrgtpogHvDEwJ082A8iVuHocJH0UX1E-agrbG1a7w"
-    ],
-    category: "heritage",
-  },
-  "earthenware-toys": {
-    id: "earthenware-toys",
-    name: "ঐতিহ্যবাহী মাটির পাত্র ও খেলনা সেট",
-    brand: "কুটির শিল্প",
-    description: "নকশী আঁকা মাটির তৈজসপত্র ও দেশীয় হস্তশিল্প। আপনার ঘর সাজাতে দারুণ একটি আকর্ষণ।",
-    price: 650,
-    images: [
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuChFyl64QhIZxDVk_cquX33__yLJv9TJDwCxcYupXwe_SXCLTeM-90aa9K--_-JabKrijrL86cpWzOcQSjyBzk0lla38k7fFMbuGFuAlhwpMMdoqIEC9_OUOCpXkAMet17OgD7vvNyGv-fTWy1n_-oFWRXM1rRU-QRUliMasJgBGEO7dsi1R7qxPXRZDaUfdfMAMOPEEWTjrdS8Vy7CdbNSF8tAkupalMeRL6Py5VTssSZ1ZtyesIoDSQ",
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAGPEaDMFD0Lul-J6uYWPvCRxwf-CDPeB7V0Izo30oHY3uMyFh-m6UfIc-pFBphnm2L4Dtwd_qOTWHDpNUiGBBjC1U-xCJDCORwaTCrPYSI7h8fsMdy5JANTvHrvIWhjuOVJRmt4_qsYqv4MfOdGp3-dXSOQ-amhtGsEgvTU-io0tqEff8D4J_UbmBv0QbYaTOsGWJi2VZHSu79bAiu5-_0sCQ9P2iOHVbZPCd6Kv75kAU-_1nV6XM8fQ"
-    ],
-    category: "khanti-deshi",
-  }
-};
-
-export default function ProductDetails() {
+export default function ProductPage() {
   const params = useParams();
   const id = params.id as string;
-  const product = productDB[id] || productDB["ghee-500"]; // Fallback for demo
-  
-  const [mainImage, setMainImage] = useState(product.images[0]);
-  const [zoomStyle, setZoomStyle] = useState<React.CSSProperties>({ display: 'none', backgroundPosition: '0% 0%' });
-  const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState(1);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { left, top, width, height } = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - left) / width) * 100;
-    const y = ((e.clientY - top) / height) * 100;
-    setZoomStyle({
-      display: 'block',
-      backgroundPosition: `${x}% ${y}%`,
-      backgroundImage: `url(${mainImage})`,
-      backgroundSize: '200%' // Zoom level
-    });
+  const product = featuredProducts.find((p) => p.id === id);
+
+  const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
+  const [quantity, setQuantity] = useState(1);
+  const [added, setAdded] = useState(false);
+
+  if (!product) {
+    return (
+      <main className="min-h-screen pt-32 md:pt-44 pb-28 md:pb-16 bg-[#F9FAFB] flex items-center justify-center px-4">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 max-w-md w-full text-center">
+          <Package size={64} className="text-gray-200 mx-auto mb-4" />
+          <h1 className="text-xl font-bold text-gray-700 mb-2">পণ্য পাওয়া যায়নি</h1>
+          <Link href="/" className="inline-flex items-center gap-2 mt-4 bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition">
+            <ArrowLeft size={16} /> হোমে ফিরুন
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  const handleAddToCart = () => {
+    for (let i = 0; i < quantity; i++) {
+      addToCart(product);
+    }
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
   };
 
+  const relatedProducts = featuredProducts
+    .filter((p) => p.category === product.category && p.id !== product.id)
+    .slice(0, 4);
+
   return (
-    <main className="w-full pt-32 lg:pt-44 bg-surface min-h-screen pb-20">
-      <div className="max-w-[1320px] mx-auto px-4 md:px-8 py-8">
-        <div className="flex flex-col md:flex-row gap-8 lg:gap-16">
-          
-          {/* Images Section */}
-          <div className="w-full md:w-1/2 flex flex-col gap-4">
-            <div 
-              className="relative w-full aspect-square bg-gray-100 rounded-xl overflow-hidden cursor-crosshair group"
-              onMouseMove={handleMouseMove}
-              onMouseLeave={() => setZoomStyle({ display: 'none', backgroundPosition: '0% 0%' })}
-            >
-              <img src={mainImage} alt={product.name} className="w-full h-full object-cover" />
-              
-              {/* Zoom Lens Overlay */}
-              <div 
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  ...zoomStyle,
-                  backgroundColor: 'white',
-                  backgroundRepeat: 'no-repeat'
-                }}
+    <main className="min-h-screen pt-32 md:pt-44 pb-28 md:pb-16 bg-[#F9FAFB]">
+      <div className="max-w-5xl mx-auto px-4 py-6">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-xs text-gray-400 mb-6">
+          <Link href="/" className="hover:text-primary transition">হোম</Link>
+          <span>/</span>
+          <Link href={`/category/${encodeURIComponent(product.category)}`} className="hover:text-primary transition">{product.category}</Link>
+          <span>/</span>
+          <span className="text-gray-600 truncate max-w-[150px]">{product.name}</span>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-8 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+          {/* Image */}
+          <div className="w-full md:w-1/2">
+            <div className="aspect-square bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center border border-gray-100">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="max-w-full max-h-full object-contain p-8 mix-blend-multiply"
               />
             </div>
-            
-            {/* Thumbnails */}
-            <div className="flex gap-4 overflow-x-auto custom-scrollbar pb-2">
-              {product.images.map((img: string, idx: number) => (
-                <button 
-                  key={idx}
-                  onClick={() => setMainImage(img)}
-                  className={`shrink-0 w-24 h-24 rounded-lg overflow-hidden border-2 transition-all ${mainImage === img ? 'border-primary' : 'border-transparent'}`}
+          </div>
+
+          {/* Details */}
+          <div className="w-full md:w-1/2 flex flex-col gap-4">
+            {product.isBestSeller && (
+              <span className="inline-block bg-yellow-100 text-yellow-700 text-xs font-bold px-3 py-1 rounded-full w-fit">
+                🏆 Best Seller
+              </span>
+            )}
+            <div>
+              <h1 className="text-xl md:text-2xl font-bold text-gray-800 leading-tight">{product.name}</h1>
+              {product.weight && <p className="text-sm text-gray-400 mt-1">{product.weight}</p>}
+              <p className="text-sm text-gray-500 mt-1">ক্যাটাগরি: <Link href={`/category/${encodeURIComponent(product.category)}`} className="text-primary hover:underline">{product.category}</Link></p>
+            </div>
+
+            <div className="text-3xl font-bold text-primary">
+              ৳{product.price.toFixed(2)}
+            </div>
+
+            {/* Quantity */}
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-gray-600 font-medium">পরিমাণ:</span>
+              <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden">
+                <button
+                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  className="px-4 py-2 hover:bg-gray-100 transition"
                 >
-                  <img src={img} className="w-full h-full object-cover" alt="thumbnail" />
+                  <Minus size={14} />
                 </button>
+                <span className="px-4 py-2 font-bold text-sm">{quantity}</span>
+                <button
+                  onClick={() => setQuantity(quantity + 1)}
+                  className="px-4 py-2 hover:bg-gray-100 transition"
+                >
+                  <Plus size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* Action buttons */}
+            <div className="flex gap-3">
+              <button
+                onClick={handleAddToCart}
+                className={`flex-1 font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition ${
+                  added ? "bg-green-500 text-white" : "bg-primary text-white hover:opacity-90"
+                }`}
+              >
+                {added ? (
+                  <><CheckCircle size={18} /> যোগ হয়েছে!</>
+                ) : (
+                  <><ShoppingCart size={18} /> কার্টে যোগ করুন</>
+                )}
+              </button>
+              <button
+                onClick={() =>
+                  isInWishlist(product.id)
+                    ? removeFromWishlist(product.id)
+                    : addToWishlist(product)
+                }
+                className={`p-3 rounded-xl border transition ${
+                  isInWishlist(product.id)
+                    ? "border-red-200 bg-red-50 text-red-500"
+                    : "border-gray-200 hover:bg-gray-50 text-gray-400"
+                }`}
+              >
+                <Heart size={20} className={isInWishlist(product.id) ? "fill-current" : ""} />
+              </button>
+            </div>
+
+            <Link
+              href="/checkout"
+              onClick={() => addToCart(product)}
+              className="w-full border-2 border-primary text-primary font-bold py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-primary hover:text-white transition"
+            >
+              এখনই অর্ডার করুন
+            </Link>
+
+            {/* Trust badges */}
+            <div className="space-y-2 pt-4 border-t border-gray-100">
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <CheckCircle size={16} className="text-green-500" />
+                ১০০% আসল পণ্যের গ্যারান্টি
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <Truck size={16} className="text-blue-500" />
+                সারাদেশে ক্যাশ অন ডেলিভারি
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <RotateCcw size={16} className="text-orange-500" />
+                ৭ দিনের রিটার্ন পলিসি
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <div className="mt-10">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">একই ক্যাটাগরির পণ্য</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              {relatedProducts.map((p) => (
+                <Link
+                  key={p.id}
+                  href={`/product/${p.id}`}
+                  className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition p-4 flex flex-col group"
+                >
+                  <div className="h-28 flex items-center justify-center mb-3">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
+                    />
+                  </div>
+                  <h3 className="text-xs font-semibold text-gray-700 line-clamp-2 mb-1">{p.name}</h3>
+                  {p.weight && <span className="text-[10px] text-gray-400">{p.weight}</span>}
+                  <div className="font-bold text-sm text-primary mt-1">৳{p.price.toFixed(2)}</div>
+                </Link>
               ))}
             </div>
           </div>
-          
-          {/* Details Section */}
-          <div className="w-full md:w-1/2 flex flex-col gap-6">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{product.name}</h1>
-              <p className="text-gray-500 font-medium">{product.brand}</p>
-            </div>
-            
-            <div className="text-3xl font-bold text-primary">
-              ৳{product.price}
-            </div>
-            
-            <p className="text-gray-700 leading-relaxed text-lg">
-              {product.description}
-            </p>
-            
-            <div className="flex items-center gap-6 mt-4">
-              <div className="flex items-center border border-gray-300 rounded-lg">
-                <button 
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  className="px-4 py-3 hover:bg-gray-100 transition-colors"
-                >-</button>
-                <span className="px-4 font-bold">{quantity}</span>
-                <button 
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="px-4 py-3 hover:bg-gray-100 transition-colors"
-                >+</button>
-              </div>
-              
-              <button 
-                onClick={() => {
-                  for (let i = 0; i < quantity; i++) {
-                    addToCart({
-                      id: product.id,
-                      name: product.name,
-                      price: product.price,
-                      image: mainImage,
-                      category: product.category
-                    });
-                  }
-                }}
-                className="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-lg transition-colors flex justify-center items-center gap-2 shadow-md hover:shadow-lg"
-              >
-                <span className="material-symbols-outlined">add_shopping_cart</span>
-                কার্টে যোগ করুন
-              </button>
-            </div>
-            
-            <div className="mt-8 border-t border-gray-100 pt-6 space-y-4 text-sm text-gray-600">
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-green-600">verified</span>
-                <span>১০০% আসল পণ্যের গ্যারান্টি</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-green-600">local_shipping</span>
-                <span>সারাদেশে ক্যাশ অন ডেলিভারি</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-green-600">assignment_return</span>
-                <span>৭ দিনের সহজ রিটার্ন পলিসি</span>
-              </div>
-            </div>
-          </div>
-          
-        </div>
+        )}
       </div>
     </main>
   );
