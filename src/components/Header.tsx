@@ -1,18 +1,10 @@
 import Link from "next/link";
 import React from "react";
+import HeaderCart from "./HeaderCart";
 
 export default function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-      <div className="bg-primary text-on-primary py-1 px-margin">
-        <div className="max-w-[1320px] mx-auto flex items-center justify-between text-body-sm font-body-sm">
-          <span>সারা বাংলাদেশে ক্যাশ অন ডেলিভারি সুবিধা | হেল্পলাইন: ০৯৬১২-৩৪৫৬৭৮</span>
-          <div className="flex items-center gap-gutter">
-            <span>ভাষা: বাংলা</span>
-            <span className="hidden sm:inline">মুদ্রা: ৳ BDT</span>
-          </div>
-        </div>
-      </div>
       <div className="h-20 max-w-[1320px] mx-auto px-margin flex items-center justify-between gap-gutter">
         <div className="flex items-center gap-space-md shrink-0">
           <img
@@ -76,27 +68,7 @@ export default function Header() {
               </span>
             </div>
           </Link>
-          <Link
-            className="flex items-center gap-space-sm bg-surface-container-low hover:bg-surface-container px-space-md py-space-sm rounded-lg transition-colors"
-            href="/cart"
-          >
-            <div className="relative flex items-center">
-              <span className="material-symbols-outlined text-primary text-[24px]">
-                shopping_bag
-              </span>
-              <span className="absolute -top-2 -right-2 bg-secondary text-on-secondary font-label-sm text-[10px] px-1.5 py-0.5 rounded-full font-bold">
-                ৩
-              </span>
-            </div>
-            <div className="hidden sm:flex flex-col text-left">
-              <span className="font-label-sm text-label-sm text-on-surface-variant">
-                ৩টি পণ্য
-              </span>
-              <span className="font-label-md text-label-md text-primary font-bold">
-                ৳৩,৪২০
-              </span>
-            </div>
-          </Link>
+          <HeaderCart />
           <div className="flex items-center gap-space-sm">
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
               <span className="material-symbols-outlined text-on-primary text-[18px]">

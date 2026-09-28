@@ -13,10 +13,28 @@ export default function CheckoutPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitted(true);
-    }, 1000);
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData);
+    
+    let text = `*New Order!*\n\n`;
+    text += `*Customer Info:*\n`;
+    text += `Name: ${data.firstName} ${data.lastName}\n`;
+    text += `Email: ${data.email}\n`;
+    text += `Address: ${data.address}, ${data.city} - ${data.postalCode}\n\n`;
+    
+    text += `*Order Items:*\n`;
+    cart.forEach(item => {
+      text += `- ${item.quantity}x ${item.name} (৳${(item.price * item.quantity).toFixed(2)})\n`;
+    });
+    
+    const total = cartTotal + (cartTotal > 0 ? 50 : 0);
+    text += `\n*Subtotal:* ৳${cartTotal.toFixed(2)}\n`;
+    text += `*Shipping:* ৳50.00\n`;
+    text += `*Total:* ৳${total.toFixed(2)}\n`;
+    text += `*Payment Method:* ${data.payment}\n`;
+    
+    const encodedText = encodeURIComponent(text);
+    window.location.href = `https://wa.me/8801331205412?text=${encodedText}`;
   };
 
   if (isSubmitted) {
@@ -53,47 +71,47 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
-                  <input required type="text" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
+                  <input required name="firstName" type="text" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
-                  <input required type="text" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
+                  <input required name="lastName" type="text" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
                 </div>
               </div>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
-                <input required type="email" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
+                <input required name="email" type="email" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
               </div>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Street Address *</label>
-                <input required type="text" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
+                <input required name="address" type="text" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">City *</label>
-                  <input required type="text" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
+                  <input required name="city" type="text" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Postal Code *</label>
-                  <input required type="text" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
+                  <input required name="postalCode" type="text" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:ring-1 focus:ring-primary focus:outline-none" />
                 </div>
               </div>
               
               <h2 className="text-xl font-bold mb-4 mt-8 border-b pb-4">Payment Method</h2>
               <div className="space-y-3">
                 <label className="flex items-center gap-3 p-3 border rounded-md cursor-pointer hover:bg-gray-50 bg-green-50 border-primary">
-                  <input type="radio" name="payment" defaultChecked className="text-primary focus:ring-primary h-4 w-4" />
+                  <input type="radio" name="payment" value="Credit/Debit" defaultChecked className="text-primary focus:ring-primary h-4 w-4" />
                   <span className="font-medium">Credit / Debit Card</span>
                 </label>
                 <label className="flex items-center gap-3 p-3 border rounded-md cursor-pointer hover:bg-gray-50">
-                  <input type="radio" name="payment" className="text-primary focus:ring-primary h-4 w-4" />
+                  <input type="radio" name="payment" value="iDEAL" className="text-primary focus:ring-primary h-4 w-4" />
                   <span className="font-medium">iDEAL</span>
                 </label>
                 <label className="flex items-center gap-3 p-3 border rounded-md cursor-pointer hover:bg-gray-50">
-                  <input type="radio" name="payment" className="text-primary focus:ring-primary h-4 w-4" />
+                  <input type="radio" name="payment" value="Cash on Delivery" className="text-primary focus:ring-primary h-4 w-4" />
                   <span className="font-medium">Cash on Delivery</span>
                 </label>
               </div>
@@ -120,7 +138,7 @@ export default function CheckoutPage() {
                       <span className="text-gray-500 font-medium">{item.quantity}x</span>
                       <span className="text-gray-800">{item.name}</span>
                     </div>
-                    <span className="font-medium">€{(item.price * item.quantity).toFixed(2)}</span>
+                    <span className="font-medium">৳{(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                 ))}
               </div>
@@ -128,15 +146,15 @@ export default function CheckoutPage() {
               <div className="border-t pt-4 space-y-3 text-sm">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal ({cartCount} items)</span>
-                  <span>€{cartTotal.toFixed(2)}</span>
+                  <span>৳{cartTotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Shipping</span>
-                  <span>€5.00</span>
+                  <span>৳50.00</span>
                 </div>
                 <div className="flex justify-between font-bold text-lg pt-2 border-t text-gray-800">
                   <span>Total</span>
-                  <span>€{(cartTotal + (cartTotal > 0 ? 5 : 0)).toFixed(2)}</span>
+                  <span>৳{(cartTotal + (cartTotal > 0 ? 50 : 0)).toFixed(2)}</span>
                 </div>
               </div>
             </div>

@@ -7,6 +7,7 @@ import { WishlistProvider } from "@/context/WishlistContext";
 import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MobileBottomNav from "@/components/MobileBottomNav";
 
 const notoSansBengali = Noto_Sans_Bengali({
   subsets: ["bengali"],
@@ -57,6 +58,7 @@ export default function RootLayout({
             <CartProvider>
               <Header />
               {children}
+              <MobileBottomNav />
               <Footer />
             </CartProvider>
           </WishlistProvider>
