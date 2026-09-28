@@ -1,8 +1,6 @@
 'use client';
 
 import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { useWishlist } from '@/context/WishlistContext';
 import { useCart } from '@/context/CartContext';
 import { ShoppingCart, Trash2, Heart } from 'lucide-react';
@@ -19,9 +17,7 @@ export default function WishlistPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-      <Header />
-      
-      <main className="flex-grow container mx-auto px-4 py-8">
+<main className="flex-grow container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-2">
           <Heart className="text-primary fill-primary" /> My Wishlist
         </h1>
@@ -88,8 +84,6 @@ export default function WishlistPage() {
           </div>
         )}
       </main>
-
-      <Footer />
-    </div>
+</div>
   );
 }

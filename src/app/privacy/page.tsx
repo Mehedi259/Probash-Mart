@@ -1,12 +1,9 @@
 import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-      <Header />
-      <main className="flex-grow container mx-auto px-4 py-12 max-w-4xl">
+<main className="flex-grow container mx-auto px-4 py-12 max-w-4xl">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">Privacy Policy</h1>
         <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 prose max-w-none text-gray-600">
           <p className="mb-4">Last updated: {new Date().toLocaleDateString()}</p>
@@ -19,7 +16,6 @@ export default function PrivacyPage() {
           <p className="mb-4">We implement industry-standard security measures to protect your personal information. We do not sell or share your data with third parties except as necessary to fulfill your orders (e.g., shipping partners).</p>
         </div>
       </main>
-      <Footer />
-    </div>
+</div>
   );
 }

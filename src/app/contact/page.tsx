@@ -1,15 +1,12 @@
 'use client';
 
 import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-      <Header />
-      <main className="flex-grow container mx-auto px-4 py-12 max-w-4xl">
+<main className="flex-grow container mx-auto px-4 py-12 max-w-4xl">
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">Contact Us</h1>
         <p className="text-gray-500 text-center mb-10">We'd love to hear from you. Get in touch with our team!</p>
         
@@ -66,7 +63,6 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
-      <Footer />
-    </div>
+</div>
   );
 }

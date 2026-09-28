@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Product } from '@/types';
 import { ShoppingCart, Heart, Tag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -37,9 +35,7 @@ export default function DealsPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-      <Header />
-      
-      <main className="flex-grow container mx-auto px-4 py-8">
+<main className="flex-grow container mx-auto px-4 py-8">
         <div className="mb-8">
           <Link href="/" className="text-sm text-gray-500 hover:text-primary mb-2 inline-block">← Back to Home</Link>
           <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2">
@@ -98,8 +94,6 @@ export default function DealsPage() {
           </div>
         )}
       </main>
-
-      <Footer />
-    </div>
+</div>
   );
 }

@@ -2,8 +2,6 @@
 
 import React, { useState } from 'react';
 import { useCart } from '@/context/CartContext';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -40,8 +38,7 @@ export default function CheckoutPage() {
   if (isSubmitted) {
     return (
       <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-        <Header />
-        <main className="flex-grow flex items-center justify-center p-4">
+<main className="flex-grow flex items-center justify-center p-4">
           <div className="bg-white p-8 rounded-xl shadow-sm text-center max-w-md w-full">
             <CheckCircle2 size={64} className="text-green-500 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-gray-800 mb-2">Order Confirmed!</h1>
@@ -51,16 +48,13 @@ export default function CheckoutPage() {
             </Link>
           </div>
         </main>
-        <Footer />
-      </div>
+</div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-      <Header />
-      
-      <main className="flex-grow container mx-auto px-4 py-8">
+<main className="flex-grow container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">Checkout</h1>
         
         <div className="flex flex-col lg:flex-row gap-8">
@@ -161,8 +155,6 @@ export default function CheckoutPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
-    </div>
+</div>
   );
 }
