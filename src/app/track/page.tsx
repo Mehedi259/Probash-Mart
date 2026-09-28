@@ -106,8 +106,8 @@ export default function TrackOrderPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-<main className="flex-grow container mx-auto px-4 py-12 flex flex-col items-center">
+    <div className="min-h-screen flex flex-col bg-[#F5F7FA]">
+<main className="flex-grow container mx-auto px-4 py-12 pt-[130px] md:pt-[160px] flex flex-col items-center">
         <div className="text-center mb-10 max-w-2xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Track Your Order</h1>
           <p className="text-gray-500">Enter your order ID below to check the current status of your delivery.</p>

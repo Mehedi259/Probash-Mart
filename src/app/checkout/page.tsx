@@ -32,7 +32,7 @@ export default function CheckoutPage() {
     text += `*Payment Method:* ${data.payment}\n`;
     
     const encodedText = encodeURIComponent(text);
-    window.location.href = `https://wa.me/8801331205412?text=${encodedText}`;
+    window.location.href = `https://wa.me/96894578538?text=${encodedText}`;
   };
 
   if (isSubmitted) {
@@ -53,8 +53,8 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-<main className="flex-grow container mx-auto px-4 py-8">
+    <div className="min-h-screen flex flex-col bg-[#F5F7FA]">
+<main className="flex-grow container mx-auto px-4 py-8 pt-[130px] md:pt-[160px]">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">Checkout</h1>
         
         <div className="flex flex-col lg:flex-row gap-8">

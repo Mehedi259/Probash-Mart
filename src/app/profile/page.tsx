@@ -18,7 +18,7 @@ export default function ProfilePage() {
   // Not logged in — show auth UI
   if (!isAuthenticated) {
     return (
-      <main className="min-h-screen pt-32 md:pt-44 pb-28 md:pb-16 bg-[#F9FAFB] flex items-center justify-center px-4">
+      <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA] flex items-center justify-center px-4">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 max-w-md w-full">
           {/* Logo */}
           <div className="text-center mb-8">
@@ -107,7 +107,7 @@ export default function ProfilePage() {
 
   // Logged in — show profile
   return (
-    <main className="min-h-screen pt-32 md:pt-44 pb-28 md:pb-16 bg-[#F9FAFB]">
+    <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA]">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8">আমার অ্যাকাউন্ট</h1>
 

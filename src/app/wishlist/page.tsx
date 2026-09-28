@@ -16,7 +16,7 @@ export default function WishlistPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
+    <div className="min-h-screen flex flex-col bg-[#F5F7FA]">
 <main className="flex-grow container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-2">
           <Heart className="text-primary fill-primary" /> My Wishlist

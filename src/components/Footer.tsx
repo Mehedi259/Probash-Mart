@@ -3,164 +3,82 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-surface-container-low pt-space-xl pb-space-lg text-on-surface shadow-[0_-1px_6px_rgba(0,0,0,0.02)]">
-      <div className="max-w-[1320px] mx-auto px-margin">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-space-xl">
-          <div className="flex flex-col gap-space-sm">
-            <div className="flex items-center gap-space-sm mb-space-xs">
-              <img
-                alt="ProbashMart Logo"
-                className="h-7 w-auto object-contain"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGlSFimrbEhMkUKxgE1bGjbFOBGxZs3-Jwn81z1XR-yxuTjrJqFgCqfO-Kn6lv8z9lDYwQkmSlgXKtapXDsSDbYNF2YD_1nZzSHlbswv2vd3oN7XXl8uUh3UiCYRqKEb2JfV4cib4-btEmDtloTkFPK4jjUgoTThr2q3psnEd8IGtai_FnIMUH4aCDwq_kgzUXdAwy4U-yKJunDV374tTQmtrd0frD5cPfn-Tq2aRu_Fr2nWURGOWveA"
-              />
-              <span className="font-headline-sm text-headline-sm text-primary">
-                প্রবাসমার্ট
-              </span>
+    <footer className="w-full bg-gray-900 text-gray-300 pt-12 pb-6">
+      <div className="max-w-[1320px] mx-auto px-4 md:px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+          {/* Brand */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <img alt="ProbashMart" className="h-10 w-auto rounded-lg" src="/images/logo.jpg" />
+              <span className="text-white font-bold text-lg">প্রবাসমার্ট</span>
             </div>
-            <p className="font-body-md text-body-md text-on-surface-variant">
-              প্রবাসী ও দেশীয় গ্রাহকদের জন্য শতভাগ নিরাপদ ও খাঁটি দেশি পণ্যের
-              বিশ্বস্ত প্রতিষ্ঠান।
+            <p className="text-sm text-gray-400 leading-relaxed">
+              প্রবাসী ও দেশীয় গ্রাহকদের জন্য শতভাগ নিরাপদ ও খাঁটি দেশি পণ্যের বিশ্বস্ত প্রতিষ্ঠান।
             </p>
-            <div className="flex flex-col gap-space-xs mt-space-xs font-body-sm text-body-sm text-on-surface-variant">
-              <div className="flex items-center gap-space-xs">
-                <span className="material-symbols-outlined text-[18px] text-primary">
-                  call
-                </span>
-                <span>০৯৬১২-৩৪৫৬৭৮ (সকাল ৯টা - রাত ১০টা)</span>
+            <div className="space-y-2 text-sm text-gray-400">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary text-[16px]">call</span>
+                <span>+968 9457 8538</span>
               </div>
-              <div className="flex items-center gap-space-xs">
-                <span className="material-symbols-outlined text-[18px] text-primary">
-                  mail
-                </span>
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary text-[16px]">mail</span>
                 <span>support@probashmart.com</span>
               </div>
-              <div className="flex items-center gap-space-xs">
-                <span className="material-symbols-outlined text-[18px] text-primary">
-                  location_on
-                </span>
-                <span>হাউস-১২, রোড-০৫, ধানমন্ডি, ঢাকা-১২০৫</span>
-              </div>
             </div>
           </div>
-          <div className="flex flex-col gap-space-sm">
-            <h4 className="font-headline-sm text-headline-sm text-primary mb-space-xs">
-              কাস্টমার সার্ভিস
-            </h4>
-            <div className="flex flex-col gap-space-xs font-body-md text-body-md text-on-surface-variant">
-              <Link className="hover:text-primary transition-colors" href="/track">
-                অর্ডার ট্র্যাকিং
-              </Link>
-              <Link className="hover:text-primary transition-colors" href="/returns">
-                রিটার্ন ও রিফান্ড নীতি
-              </Link>
-              <Link
-                className="hover:text-primary transition-colors"
-                href="/shipping"
-              >
-                শিপিং ও ডেলিভারি তথ্য
-              </Link>
-              <Link className="hover:text-primary transition-colors" href="/faq">
-                সাধারণ জিজ্ঞাসা (FAQ)
-              </Link>
-              <Link
-                className="hover:text-primary transition-colors"
-                href="/support"
-              >
-                হেল্প ও সাপোর্ট সেন্টার
-              </Link>
+
+          {/* Customer Service */}
+          <div>
+            <h4 className="text-white font-bold text-sm mb-4">কাস্টমার সার্ভিস</h4>
+            <div className="space-y-2.5 text-sm">
+              <Link className="block hover:text-primary transition" href="/track">অর্ডার ট্র্যাকিং</Link>
+              <Link className="block hover:text-primary transition" href="/returns">রিটার্ন ও রিফান্ড নীতি</Link>
+              <Link className="block hover:text-primary transition" href="/shipping">শিপিং ও ডেলিভারি তথ্য</Link>
+              <Link className="block hover:text-primary transition" href="/faq">সাধারণ জিজ্ঞাসা (FAQ)</Link>
+              <Link className="block hover:text-primary transition" href="/contact">যোগাযোগ</Link>
             </div>
           </div>
-          <div className="flex flex-col gap-space-sm">
-            <h4 className="font-headline-sm text-headline-sm text-primary mb-space-xs">
-              জনপ্রিয় ক্যাটাগরি
-            </h4>
-            <div className="flex flex-col gap-space-xs font-body-md text-body-md text-on-surface-variant">
-              <Link
-                className="hover:text-primary transition-colors"
-                href="/category/hilsa"
-              >
-                চাঁদপুরের পদ্মার ইলিশ
-              </Link>
-              <Link
-                className="hover:text-primary transition-colors"
-                href="/category/honey"
-              >
-                সুন্দরবনের খাঁটি মধু ও ঘি
-              </Link>
-              <Link
-                className="hover:text-primary transition-colors"
-                href="/category/mangoes"
-              >
-                রাজশাহীর হিমসাগর ও ল্যাংড়া আম
-              </Link>
-              <Link
-                className="hover:text-primary transition-colors"
-                href="/category/dates"
-              >
-                মদিনার প্রিমিয়াম আজওয়া খেজুর
-              </Link>
-              <Link
-                className="hover:text-primary transition-colors"
-                href="/category/heritage"
-              >
-                জামদানি শাড়ি ও কুটির শিল্প
-              </Link>
+
+          {/* Categories */}
+          <div>
+            <h4 className="text-white font-bold text-sm mb-4">জনপ্রিয় ক্যাটাগরি</h4>
+            <div className="space-y-2.5 text-sm">
+              <Link className="block hover:text-primary transition" href="/category/Frozen Fish">ইলিশ ও মাছ</Link>
+              <Link className="block hover:text-primary transition" href="/category/Fresh Vegetables">তাজা শাক-সবজি</Link>
+              <Link className="block hover:text-primary transition" href={"/category/Spices %26 Masala"}>মশলা ও মসল্লা</Link>
+              <Link className="block hover:text-primary transition" href={"/category/Sweets %26 Desserts"}>মিষ্টি ও ডেজার্ট</Link>
+              <Link className="block hover:text-primary transition" href={"/category/Snacks %26 Biscuits"}>স্ন্যাকস ও চানাচুর</Link>
+              <Link className="block hover:text-primary transition" href="/shop">সব পণ্য দেখুন →</Link>
             </div>
           </div>
-          <div className="flex flex-col gap-space-sm">
-            <h4 className="font-headline-sm text-headline-sm text-primary mb-space-xs">
-              পেমেন্টের মাধ্যমসমূহ
-            </h4>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-xs">
-              নিরাপদ ও সহজ পেমেন্ট গেটওয়ে দিয়ে কেনাকাটা করুন:
-            </p>
-            <div className="flex flex-wrap gap-space-xs">
-              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
-                বিকাশ
-              </span>
-              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
-                নগদ
-              </span>
-              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
-                রকেট
-              </span>
-              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
-                ভিসা কার্ড
-              </span>
-              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
-                মাস্টারকার্ড
-              </span>
-              <span className="bg-surface-container px-space-sm py-1 rounded font-label-sm text-label-sm text-on-surface font-semibold">
-                ক্যাশ অন ডেলিভারি
-              </span>
+
+          {/* Payment */}
+          <div>
+            <h4 className="text-white font-bold text-sm mb-4">পেমেন্ট ও নিরাপত্তা</h4>
+            <p className="text-sm text-gray-400 mb-3">নিরাপদ পেমেন্ট গেটওয়ে:</p>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {["বিকাশ", "নগদ", "রকেট", "ভিসা", "মাস্টারকার্ড", "COD"].map(m => (
+                <span key={m} className="bg-gray-800 px-2.5 py-1 rounded text-[11px] font-medium text-gray-300 border border-gray-700">
+                  {m}
+                </span>
+              ))}
             </div>
-            <div className="mt-space-md p-space-sm bg-surface-container-high rounded-lg flex items-center gap-space-sm">
-              <span className="material-symbols-outlined text-primary text-[24px]">
-                verified_user
-              </span>
-              <div className="flex flex-col">
-                <span className="font-label-md text-label-md text-on-surface font-bold">
-                  ১০০% খাঁটি পণ্য নিশ্চিত
-                </span>
-                <span className="font-label-sm text-label-sm text-on-surface-variant">
-                  প্রবাসীদের নির্ভরযোগ্য শপ
-                </span>
+            <div className="bg-primary/10 border border-primary/20 rounded-xl p-3 flex items-center gap-3">
+              <span className="material-symbols-outlined text-primary text-[28px]">verified_user</span>
+              <div>
+                <p className="text-white font-bold text-xs">১০০% খাঁটি পণ্য</p>
+                <p className="text-gray-400 text-[10px]">নিশ্চিত গ্যারান্টি</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="pt-space-md border-t border-outline-variant/30 flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
-          <span>© ২০২৫ প্রবাসমার্ট লিমিটেড। সর্বস্বত্ব সংরক্ষিত। দেশি পণ্যে আস্থা।</span>
-          <div className="flex items-center gap-space-md">
-            <Link className="hover:text-primary transition-colors" href="/terms">
-              শর্তাবলী
-            </Link>
-            <Link
-              className="hover:text-primary transition-colors"
-              href="/privacy"
-            >
-              গোপনীয়তা নীতি
-            </Link>
+
+        {/* Bottom */}
+        <div className="pt-6 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+          <span>© ২০২৬ প্রবাসমার্ট। সর্বস্বত্ব সংরক্ষিত।</span>
+          <div className="flex gap-4">
+            <Link className="hover:text-primary transition" href="/terms">শর্তাবলী</Link>
+            <Link className="hover:text-primary transition" href="/privacy">গোপনীয়তা</Link>
           </div>
         </div>
       </div>

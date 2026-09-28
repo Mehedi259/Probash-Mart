@@ -20,7 +20,7 @@ export const featuredProducts: Product[] = [
     id: 'p1',
     name: 'Hilsa Fish (Frozen)',
     price: 12.99,
-    weight: '(€/kg)',
+    weight: '(৳/কেজি)',
     image: '/images/product_hilsa.jpg',
     category: 'Frozen Fish',
     isBestSeller: true,

@@ -9,7 +9,7 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <main className="min-h-screen pt-32 md:pt-44 pb-28 md:pb-16 bg-[#F9FAFB] flex flex-col items-center justify-center px-4">
+      <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA] flex flex-col items-center justify-center px-4">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 max-w-md w-full text-center">
           <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
             <ShoppingBag size={48} className="text-gray-300" />
@@ -31,7 +31,7 @@ export default function CartPage() {
   const total = cartTotal + shipping;
 
   return (
-    <main className="min-h-screen pt-32 md:pt-44 pb-28 md:pb-16 bg-[#F9FAFB]">
+    <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA]">
       <div className="max-w-5xl mx-auto px-4 py-8">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8 flex items-center gap-2">
           <ShoppingBag className="text-primary" /> আমার কার্ট ({cartCount}টি পণ্য)

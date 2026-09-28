@@ -1,99 +1,33 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
-import { Product } from '@/types';
-import { ShoppingCart, Heart, Tag } from 'lucide-react';
-import { useCart } from '@/context/CartContext';
-import { useWishlist } from '@/context/WishlistContext';
-import Link from 'next/link';
+"use client";
+import React from "react";
+import { featuredProducts } from "@/data/mockData";
+import ProductCard from "@/components/ProductCard";
+import { Tag } from "lucide-react";
+import Link from "next/link";
 
 export default function DealsPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const { addToCart } = useCart();
-  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(`/api/products`);
-        if (res.ok) {
-          const data = await res.json();
-          // For deals, we simulate by filtering best sellers or just showing all items but we'll show best sellers here
-          setProducts(data.filter((p: Product) => p.isBestSeller));
-        }
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+  // Show products as "deals" - take first 24 products with simulated discount
+  const dealProducts = featuredProducts.slice(0, 24);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F9FAFB]">
-<main className="flex-grow container mx-auto px-4 py-8">
+    <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA]">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Header */}
         <div className="mb-8">
-          <Link href="/" className="text-sm text-gray-500 hover:text-primary mb-2 inline-block">← Back to Home</Link>
-          <h1 className="text-3xl font-bold text-gray-800 flex items-center gap-2">
-            <Tag className="text-primary fill-primary" /> Special Deals
+          <Link href="/" className="text-sm text-gray-400 hover:text-primary transition mb-4 inline-block">← হোমে ফিরুন</Link>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 flex items-center gap-2">
+            <Tag className="text-red-500" /> ধামাকা অফার
           </h1>
-          <p className="text-gray-500 mt-2">Enjoy discounts on our best-selling products!</p>
+          <p className="text-gray-500 mt-1">সীমিত সময়ের জন্য বিশেষ ছাড়!</p>
         </div>
 
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-          </div>
-        ) : products.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {products.map((product) => (
-              <div key={product.id} className="bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md transition flex flex-col relative group">
-                <span className="absolute top-2 left-0 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-r-md z-10">
-                  Sale
-                </span>
-                <button 
-                  onClick={() => isInWishlist(product.id) ? removeFromWishlist(product.id) : addToWishlist(product)}
-                  className="absolute top-2 right-2 p-1.5 bg-white rounded-full shadow-sm hover:shadow-md hover:text-primary transition z-10"
-                >
-                  <Heart size={16} className={isInWishlist(product.id) ? "fill-primary text-primary" : "text-gray-400"} />
-                </button>
-                <Link href={`/product/${product.id}`} className="block h-40 w-full relative mb-4 mt-2">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-300" />
-                </Link>
-                <div className="flex-1 flex flex-col justify-between">
-                  <div>
-                    <Link href={`/product/${product.id}`} className="hover:text-primary transition">
-                      <h3 className="font-semibold text-gray-800 text-sm leading-tight mb-1">{product.name}</h3>
-                    </Link>
-                    <span className="text-xs text-gray-500">{product.weight}</span>
-                  </div>
-                  <div className="mt-4 space-y-3">
-                    <div className="font-bold text-lg">
-                      <span className="text-gray-400 line-through text-sm mr-2">€{(product.price * 1.2).toFixed(2)}</span>
-                      €{product.price.toFixed(2)}
-                    </div>
-                    <button 
-                      onClick={() => addToCart(product)}
-                      className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2 rounded-md flex items-center justify-center gap-2 transition text-sm"
-                    >
-                      <ShoppingCart size={16} /> Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="bg-white p-12 text-center rounded-xl shadow-sm border border-gray-100">
-            <h2 className="text-xl font-medium text-gray-700">No active deals right now.</h2>
-            <Link href="/shop" className="text-primary hover:underline mt-4 inline-block font-medium">Browse All Products</Link>
-          </div>
-        )}
-      </main>
-</div>
+        {/* Products Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+          {dealProducts.map((product) => (
+            <ProductCard key={product.id} product={product} showDiscount />
+          ))}
+        </div>
+      </div>
+    </main>
   );
 }
