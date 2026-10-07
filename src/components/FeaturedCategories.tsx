@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { categories } from "@/data/mockData";
+import { categoriesAPI } from "@/lib/api";
+import { useApi } from "@/hooks/useApi";
 
 const categoryMeta: Record<string, { bn: string; image: string; count: string }> = {
   "Frozen Fish": { bn: "ইলিশ ও মাছ", image: "/images/Hilsa.webp", count: "২৪টি পণ্য" },
@@ -15,7 +16,10 @@ const categoryMeta: Record<string, { bn: string; image: string; count: string }>
 };
 
 export default function FeaturedCategories() {
-  const displayCats = categories.filter(c => c.name !== "Other" && c.name !== "Personal Care").slice(0, 7);
+  const { data } = useApi(() => categoriesAPI.list());
+  const categories = Array.isArray(data) ? data : (data?.results || []);
+
+  const displayCats = categories.filter((c: any) => c.name !== "Other" && c.name !== "Personal Care").slice(0, 7);
 
   return (
     <section className="w-full py-8">
@@ -30,13 +34,13 @@ export default function FeaturedCategories() {
           </Link>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
-          {displayCats.map((cat) => {
+          {displayCats.map((cat: any) => {
             const meta = categoryMeta[cat.name];
             return (
               <Link
                 key={cat.id}
                 className="group flex flex-col items-center text-center p-3 rounded-2xl bg-white hover:bg-primary/5 transition-all shadow-sm hover:shadow-md border border-gray-50"
-                href={`/category/${encodeURIComponent(cat.name)}`}
+                href={`/category/${encodeURIComponent(cat.slug || cat.name.toLowerCase())}`}
               >
                 <div className="w-14 h-14 rounded-full overflow-hidden bg-gray-100 mb-2 shadow-inner group-hover:scale-110 transition-transform">
                   {meta?.image ? (

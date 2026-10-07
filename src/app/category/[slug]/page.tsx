@@ -1,17 +1,18 @@
 "use client";
 import React from "react";
 import { useParams } from "next/navigation";
-import { featuredProducts } from "@/data/mockData";
+import { productsAPI } from "@/lib/api";
+import { useApi } from "@/hooks/useApi";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 export default function CategoryPage() {
   const params = useParams();
   const slug = decodeURIComponent(params.slug as string);
 
-  const products = featuredProducts.filter(
-    (p) => p.category.toLowerCase() === slug.toLowerCase()
-  );
+  const { data, loading } = useApi(() => productsAPI.list(`category_slug=${encodeURIComponent(slug)}&page_size=100`));
+  const products = data?.results || [];
 
   return (
     <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA]">
@@ -19,12 +20,16 @@ export default function CategoryPage() {
         <div className="mb-6">
           <Link href="/" className="text-xs text-gray-400 hover:text-primary transition mb-1 inline-block">← হোম</Link>
           <h1 className="text-2xl font-bold text-gray-800">{slug}</h1>
-          <p className="text-sm text-gray-500 mt-0.5">{products.length}টি পণ্য পাওয়া গেছে</p>
+          <p className="text-sm text-gray-500 mt-0.5">{loading ? "লোড হচ্ছে..." : `${products.length}টি পণ্য পাওয়া গেছে`}</p>
         </div>
 
-        {products.length > 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          </div>
+        ) : products.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-            {products.map((product) => (
+            {products.map((product: any) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

@@ -6,6 +6,8 @@ export interface Product {
   weight?: string;
   category: string;
   isBestSeller?: boolean;
+  // allow additional fields gracefully
+  [key: string]: any;
 }
 
 export interface Category {
@@ -13,6 +15,7 @@ export interface Category {
   name: string;
   icon: string;
   image?: string;
+  [key: string]: any;
 }
 
 export interface CartItem extends Product {

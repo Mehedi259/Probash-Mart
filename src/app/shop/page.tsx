@@ -1,20 +1,28 @@
 "use client";
 import React, { useState } from "react";
-import { featuredProducts, categories } from "@/data/mockData";
+import { productsAPI, categoriesAPI } from "@/lib/api";
+import { useApi } from "@/hooks/useApi";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
 export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortBy, setSortBy] = useState("default");
 
+  const { data: categoriesData } = useApi(() => categoriesAPI.list());
+  const { data: productsData, loading } = useApi(() => productsAPI.list('page_size=1000'));
+
+  const categories = Array.isArray(categoriesData) ? categoriesData : (categoriesData?.results || []);
+  const featuredProducts = productsData?.results || [];
+
   let filtered = selectedCategory === "all"
     ? featuredProducts
-    : featuredProducts.filter(p => p.category === selectedCategory);
+    : featuredProducts.filter((p: any) => p.category_name === selectedCategory || p.category === selectedCategory);
 
-  if (sortBy === "low") filtered = [...filtered].sort((a, b) => a.price - b.price);
-  if (sortBy === "high") filtered = [...filtered].sort((a, b) => b.price - a.price);
-  if (sortBy === "name") filtered = [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+  if (sortBy === "low") filtered = [...filtered].sort((a: any, b: any) => Number(a.price) - Number(b.price));
+  if (sortBy === "high") filtered = [...filtered].sort((a: any, b: any) => Number(b.price) - Number(a.price));
+  if (sortBy === "name") filtered = [...filtered].sort((a: any, b: any) => a.name.localeCompare(b.name));
 
   return (
     <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA]">
@@ -35,7 +43,7 @@ export default function ShopPage() {
               className="bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition"
             >
               <option value="all">সব ক্যাটাগরি</option>
-              {categories.map(cat => (
+              {categories.map((cat: any) => (
                 <option key={cat.id} value={cat.name}>{cat.name}</option>
               ))}
             </select>
@@ -55,13 +63,17 @@ export default function ShopPage() {
         </div>
 
         {/* Products */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-          {filtered.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-
-        {filtered.length === 0 && (
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          </div>
+        ) : filtered.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
+            {filtered.map((product: any) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
           <div className="text-center py-20">
             <p className="text-gray-500 text-lg">কোনো পণ্য পাওয়া যায়নি</p>
           </div>

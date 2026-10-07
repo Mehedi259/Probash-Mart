@@ -1,16 +1,20 @@
 "use client";
 import React, { useState, useRef } from "react";
 import { useParams } from "next/navigation";
-import { featuredProducts } from "@/data/mockData";
+import { productsAPI } from "@/lib/api";
+import { useApi } from "@/hooks/useApi";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import Link from "next/link";
-import { ShoppingCart, Heart, ArrowLeft, Package, CheckCircle, Truck, RotateCcw, Plus, Minus, ZoomIn } from "lucide-react";
+import { ShoppingCart, Heart, ArrowLeft, Package, CheckCircle, Truck, RotateCcw, Plus, Minus, ZoomIn, Loader2 } from "lucide-react";
 
 export default function ProductPage() {
   const params = useParams();
   const id = params.id as string;
-  const product = featuredProducts.find((p) => p.id === id);
+  const decodedId = decodeURIComponent(id);
+
+  const { data: product, loading } = useApi(() => productsAPI.get(decodedId));
+  const { data: relatedData } = useApi(() => product ? productsAPI.list(`category_slug=${encodeURIComponent(product.category || product.category_name || '')}&page_size=5`) : Promise.resolve(null), [product]);
 
   const { addToCart } = useCart();
   const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
@@ -29,6 +33,14 @@ export default function ProductPage() {
     const y = ((e.clientY - rect.top) / rect.height) * 100;
     setZoomPos({ x, y });
   };
+
+  if (loading) {
+    return (
+      <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA] flex items-center justify-center px-4">
+        <Loader2 className="w-10 h-10 text-primary animate-spin" />
+      </main>
+    );
+  }
 
   if (!product) {
     return (
@@ -50,8 +62,8 @@ export default function ProductPage() {
     setTimeout(() => setAdded(false), 2000);
   };
 
-  const relatedProducts = featuredProducts
-    .filter((p) => p.category === product.category && p.id !== product.id)
+  const relatedProducts = (relatedData?.results || [])
+    .filter((p: any) => p.id !== product.id)
     .slice(0, 5);
 
   return (
@@ -186,7 +198,7 @@ export default function ProductPage() {
           <div className="mt-12">
             <h2 className="text-xl font-bold text-gray-800 mb-5">একই ক্যাটাগরির পণ্য</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-              {relatedProducts.map((p) => (
+              {relatedProducts.map((p: any) => (
                 <Link
                   key={p.id}
                   href={`/product/${p.id}`}

@@ -62,11 +62,11 @@ export default function ProductCard({ product, badge, showDiscount }: ProductCar
 
       {/* Image */}
       <Link
-        href={`/product/${product.id}`}
+        href={`/product/${product.slug || product.id}`}
         className="block aspect-square overflow-hidden bg-gray-50/50 p-4 flex items-center justify-center"
       >
         <img
-          src={product.image}
+          src={product.image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&q=80'}
           alt={product.name}
           className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
           loading="lazy"
@@ -75,7 +75,7 @@ export default function ProductCard({ product, badge, showDiscount }: ProductCar
 
       {/* Info */}
       <div className="flex-1 flex flex-col p-3 pt-2 border-t border-gray-50">
-        <Link href={`/product/${product.id}`} className="hover:text-primary transition-colors">
+        <Link href={`/product/${product.slug || product.id}`} className="hover:text-primary transition-colors">
           <h3 className="font-semibold text-gray-800 text-[13px] leading-snug line-clamp-2 min-h-[36px]">
             {product.name}
           </h3>
@@ -88,11 +88,11 @@ export default function ProductCard({ product, badge, showDiscount }: ProductCar
           {/* Price */}
           <div className="flex items-baseline gap-2">
             <span className="font-bold text-primary text-[15px]">
-              ৳{product.price.toFixed(2)}
+              ৳{Number(product.price).toFixed(2)}
             </span>
-            {showDiscount && (
+            {(showDiscount || product.compare_price) && (
               <span className="text-[11px] text-gray-400 line-through">
-                ৳{(product.price * 1.2).toFixed(2)}
+                ৳{product.compare_price ? Number(product.compare_price).toFixed(2) : (Number(product.price) * 1.2).toFixed(2)}
               </span>
             )}
           </div>

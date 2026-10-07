@@ -1,22 +1,18 @@
 "use client";
 import React from "react";
-import { featuredProducts } from "@/data/mockData";
+import { productsAPI } from "@/lib/api";
+import { useApi } from "@/hooks/useApi";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Search } from "lucide-react";
+import { Search, Loader2 } from "lucide-react";
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get("q") || "";
 
-  const results = query.trim()
-    ? featuredProducts.filter((p) =>
-        p.name.toLowerCase().includes(query.toLowerCase()) ||
-        p.category.toLowerCase().includes(query.toLowerCase()) ||
-        (p.weight && p.weight.toLowerCase().includes(query.toLowerCase()))
-      )
-    : [];
+  const { data, loading } = useApi(() => productsAPI.list(query ? `search=${encodeURIComponent(query)}&page_size=100` : 'page_size=100'), [query]);
+  const results = data?.results || [];
 
   return (
     <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA]">
@@ -27,12 +23,16 @@ export default function SearchPage() {
             <Search size={24} className="text-primary" />
             {query ? `"${query}" এর ফলাফল` : "পণ্য খুঁজুন"}
           </h1>
-          {query && <p className="text-sm text-gray-500 mt-0.5">{results.length}টি পণ্য পাওয়া গেছে</p>}
+          {query && <p className="text-sm text-gray-500 mt-0.5">{loading ? "খোঁজা হচ্ছে..." : `${results.length}টি পণ্য পাওয়া গেছে`}</p>}
         </div>
 
-        {results.length > 0 ? (
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          </div>
+        ) : results.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4">
-            {results.map((product) => (
+            {results.map((product: any) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

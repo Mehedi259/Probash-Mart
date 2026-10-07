@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { categories } from "@/data/mockData";
+import { categoriesAPI } from "@/lib/api";
+import { useApi } from "@/hooks/useApi";
 
 const categoryIcons: Record<string, string> = {
   "Fresh Vegetables": "🥬",
@@ -18,11 +19,14 @@ const categoryIcons: Record<string, string> = {
 };
 
 export default function CategoryBar() {
+  const { data } = useApi(() => categoriesAPI.list());
+  const categories = Array.isArray(data) ? data : (data?.results || []);
+
   return (
     <section className="bg-white border-b border-gray-100 shadow-sm">
       <div className="max-w-[1320px] mx-auto px-4 md:px-6 py-4">
         <div className="flex gap-3 overflow-x-auto custom-scrollbar pb-1">
-          {categories.filter(c => c.name !== "Other").map((cat) => (
+          {categories.filter((c: any) => c.name !== "Other").map((cat: any) => (
             <Link
               key={cat.id}
               href={`/category/${encodeURIComponent(cat.name)}`}

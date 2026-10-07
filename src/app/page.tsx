@@ -1,20 +1,40 @@
 "use client";
-import React from "react";
+import React, { useMemo } from "react";
 import HeroSlider from "@/components/HeroSlider";
 import ProductSection from "@/components/ProductSection";
 import CategoryBar from "@/components/CategoryBar";
 import WhyProbashMart from "@/components/WhyProbashMart";
-import { featuredProducts, categories } from "@/data/mockData";
+import { productsAPI, categoriesAPI } from "@/lib/api";
+import { useApi } from "@/hooks/useApi";
+import { Loader2 } from "lucide-react";
 
 export default function Home() {
-  // Group products by category
-  const fishProducts = featuredProducts.filter(p => p.category === "Frozen Fish").slice(0, 6);
-  const spiceProducts = featuredProducts.filter(p => p.category === "Spices & Masala").slice(0, 6);
-  const snackProducts = featuredProducts.filter(p => p.category === "Snacks & Biscuits").slice(0, 6);
-  const sweetProducts = featuredProducts.filter(p => p.category === "Sweets & Desserts").slice(0, 6);
-  const vegProducts = featuredProducts.filter(p => p.category === "Fresh Vegetables").slice(0, 6);
-  const bestSellers = featuredProducts.filter(p => p.isBestSeller || ["p1","p2","p3","p4","p5","p6"].includes(p.id)).slice(0, 6);
-  const flashDeals = featuredProducts.slice(0, 12);
+  const { data: categoriesData, loading: categoriesLoading } = useApi(() => categoriesAPI.list());
+  const { data: productsData, loading: productsLoading } = useApi(() => productsAPI.list('page_size=100'));
+
+  const categories = Array.isArray(categoriesData) ? categoriesData : (categoriesData?.results || []);
+  const featuredProducts = productsData?.results || [];
+
+  // Group products by category dynamically
+  const getProductsByCategory = (catName: string) => 
+    featuredProducts.filter((p: any) => p.category_name === catName).slice(0, 6);
+
+  const fishProducts = getProductsByCategory("Frozen Fish");
+  const spiceProducts = getProductsByCategory("Spices & Masala");
+  const snackProducts = getProductsByCategory("Snacks & Biscuits");
+  const sweetProducts = getProductsByCategory("Sweets & Desserts");
+  const vegProducts = getProductsByCategory("Fresh Vegetables");
+  
+  const bestSellers = featuredProducts.filter((p: any) => p.is_best_seller).slice(0, 6);
+  const flashDeals = featuredProducts.filter((p: any) => p.is_flash_deal || p.discount_percentage > 0).slice(0, 12);
+
+  if (productsLoading || categoriesLoading) {
+    return (
+      <main className="w-full pt-[116px] md:pt-[140px] bg-[#F5F7FA] min-h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin text-emerald-600" size={48} />
+      </main>
+    );
+  }
 
   return (
     <main className="w-full pt-[116px] md:pt-[140px] bg-[#F5F7FA] min-h-screen pb-20 md:pb-0">

@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
-import { featuredProducts } from "@/data/mockData";
+import { productsAPI } from "@/lib/api";
+import { useApi } from "@/hooks/useApi";
 import ProductCard from "@/components/ProductCard";
-import { Tag } from "lucide-react";
+import { Tag, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 export default function DealsPage() {
-  // Show products as "deals" - take first 24 products with simulated discount
-  const dealProducts = featuredProducts.slice(0, 24);
+  const { data, loading } = useApi(() => productsAPI.list('is_flash_deal=true&page_size=100'));
+  const dealProducts = data?.results || [];
 
   return (
     <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA]">
@@ -22,11 +23,17 @@ export default function DealsPage() {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-          {dealProducts.map((product) => (
-            <ProductCard key={product.id} product={product} showDiscount />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+            {dealProducts.map((product: any) => (
+              <ProductCard key={product.id} product={product} showDiscount />
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );

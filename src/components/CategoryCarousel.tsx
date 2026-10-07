@@ -1,11 +1,15 @@
 'use client';
 
 import React from 'react';
-import { categories } from '../data/mockData';
+import { categoriesAPI } from '@/lib/api';
+import { useApi } from '@/hooks/useApi';
 import * as Icons from 'lucide-react';
 import Link from 'next/link';
 
 export default function CategoryCarousel() {
+  const { data } = useApi(() => categoriesAPI.list());
+  const categories = Array.isArray(data) ? data : (data?.results || []);
+
   return (
     <div className="bg-white py-16 border-t border-gray-100">
       <div className="container mx-auto px-4 md:px-8 text-center mb-12">
@@ -15,13 +19,13 @@ export default function CategoryCarousel() {
       
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex overflow-x-auto pb-6 gap-6 md:gap-10 custom-scrollbar scroll-smooth snap-x">
-          {categories.map((cat) => {
+          {categories.map((cat: any) => {
             const IconComponent = (Icons as any)[cat.icon] || Icons.HelpCircle;
             // Mock product count for design purposes
             const mockCount = Math.floor(Math.random() * 20) + 12;
             return (
               <Link 
-                href={`/category/${cat.name.toLowerCase()}`}
+                href={`/category/${cat.slug || cat.name.toLowerCase()}`}
                 key={cat.id} 
                 className="flex flex-col items-center min-w-[120px] md:min-w-[140px] cursor-pointer group snap-center"
               >

@@ -1,14 +1,22 @@
 "use client";
 import React from "react";
-import { featuredProducts, categories } from "@/data/mockData";
+import { productsAPI, categoriesAPI } from "@/lib/api";
+import { useApi } from "@/hooks/useApi";
 import Link from "next/link";
-import { Grid3X3, ArrowRight } from "lucide-react";
+import { Grid3X3, ArrowRight, Loader2 } from "lucide-react";
 
 export default function CategoryIndexPage() {
+  const { data: categoriesData, loading: catLoading } = useApi(() => categoriesAPI.list());
+  const { data: productsData, loading: prodLoading } = useApi(() => productsAPI.list('page_size=1000'));
+  
+  const categories = Array.isArray(categoriesData) ? categoriesData : (categoriesData?.results || []);
+  const featuredProducts = productsData?.results || [];
+  const loading = catLoading || prodLoading;
+
   // Get unique categories with product count
-  const categoryStats = categories.map(cat => ({
+  const categoryStats = categories.map((cat: any) => ({
     ...cat,
-    count: featuredProducts.filter(p => p.category === cat.name).length
+    count: featuredProducts.filter((p: any) => p.category_name === cat.name || p.category === cat.name).length
   }));
 
   const categoryImages: Record<string, string> = {
@@ -34,8 +42,13 @@ export default function CategoryIndexPage() {
           <p className="text-gray-500">আপনার পছন্দের ক্যাটাগরি বেছে নিন</p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {categoryStats.map((cat) => (
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {categoryStats.map((cat: any) => (
             <Link
               key={cat.id}
               href={`/category/${encodeURIComponent(cat.name)}`}
@@ -66,6 +79,7 @@ export default function CategoryIndexPage() {
             </Link>
           ))}
         </div>
+        )}
 
         {/* All Products */}
         <div className="mt-8">
