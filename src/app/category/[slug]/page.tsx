@@ -15,7 +15,7 @@ export default function CategoryPage() {
   const products = data?.results || [];
 
   return (
-    <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA]">
+    <main className="min-h-screen pt-[104px] md:pt-[118px] pb-28 md:pb-16 bg-[#F5F7FA]">
       <div className="max-w-[1320px] mx-auto px-4 md:px-6 py-8">
         <div className="mb-6">
           <Link href="/" className="text-xs text-gray-400 hover:text-primary transition mb-1 inline-block">← হোম</Link>

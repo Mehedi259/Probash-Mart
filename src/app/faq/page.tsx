@@ -12,7 +12,7 @@ const faqs = [
 
 export default function FAQPage() {
   return (
-    <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA]">
+    <main className="min-h-screen pt-[104px] md:pt-[118px] pb-28 md:pb-16 bg-[#F5F7FA]">
       <div className="max-w-3xl mx-auto px-4 py-8">
         <h1 className="text-2xl md:text-3xl font-bold text-gray-800 flex items-center gap-2 mb-8">
           <HelpCircle className="text-primary" /> সাধারণ জিজ্ঞাসা (FAQ)

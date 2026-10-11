@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-gray-900 text-gray-300 pt-12 pb-6">
+    <footer className="w-full bg-gray-900 text-gray-300 pt-12 pb-24 md:pb-8">
       <div className="max-w-[1320px] mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           {/* Brand */}
@@ -23,37 +23,41 @@ export default function Footer() {
                 <span className="material-symbols-outlined text-primary text-[16px]">mail</span>
                 <span>support@probashmart.com</span>
               </div>
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-primary text-[16px]">location_on</span>
+                <span>মাস্কাট, ওমান ও ঢাকা, বাংলাদেশ</span>
+              </div>
             </div>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="text-white font-bold text-base mb-4">দ্রুত লিংক</h4>
+            <ul className="space-y-2.5 text-sm text-gray-400">
+              <li><Link className="hover:text-primary transition" href="/shop">সব পণ্য</Link></li>
+              <li><Link className="hover:text-primary transition" href="/deals">আজকের অফার</Link></li>
+              <li><Link className="hover:text-primary transition" href="/category">ক্যাটাগরি সমূহ</Link></li>
+              <li><Link className="hover:text-primary transition" href="/track">অর্ডার ট্র্যাকিং</Link></li>
+              <li><Link className="hover:text-primary transition" href="/profile">আমার অ্যাকাউন্ট</Link></li>
+            </ul>
           </div>
 
           {/* Customer Service */}
           <div>
-            <h4 className="text-white font-bold text-sm mb-4">কাস্টমার সার্ভিস</h4>
-            <div className="space-y-2.5 text-sm">
-              <Link className="block hover:text-primary transition" href="/track">অর্ডার ট্র্যাকিং</Link>
-              <Link className="block hover:text-primary transition" href="/returns">রিটার্ন ও রিফান্ড নীতি</Link>
-              <Link className="block hover:text-primary transition" href="/shipping">শিপিং ও ডেলিভারি তথ্য</Link>
-              <Link className="block hover:text-primary transition" href="/faq">সাধারণ জিজ্ঞাসা (FAQ)</Link>
-              <Link className="block hover:text-primary transition" href="/contact">যোগাযোগ</Link>
-            </div>
+            <h4 className="text-white font-bold text-base mb-4">গ্রাহক সেবা</h4>
+            <ul className="space-y-2.5 text-sm text-gray-400">
+              <li><Link className="hover:text-primary transition" href="/faq">সাধারণ জিজ্ঞাসা (FAQ)</Link></li>
+              <li><Link className="hover:text-primary transition" href="/shipping">শিপিং ও ডেলিভারি নীতি</Link></li>
+              <li><Link className="hover:text-primary transition" href="/returns">রিটার্ন ও রিফান্ড নীতি</Link></li>
+              <li><Link className="hover:text-primary transition" href="/privacy">গোপনীয়তা নীতি</Link></li>
+              <li><Link className="hover:text-primary transition" href="/terms">ব্যবহারের শর্তাবলী</Link></li>
+              <li><Link className="hover:text-primary transition" href="/contact">যোগাযোগ করুন</Link></li>
+            </ul>
           </div>
 
-          {/* Categories */}
+          {/* Trust / Payment */}
           <div>
-            <h4 className="text-white font-bold text-sm mb-4">জনপ্রিয় ক্যাটাগরি</h4>
-            <div className="space-y-2.5 text-sm">
-              <Link className="block hover:text-primary transition" href="/category/Frozen Fish">ইলিশ ও মাছ</Link>
-              <Link className="block hover:text-primary transition" href="/category/Fresh Vegetables">তাজা শাক-সবজি</Link>
-              <Link className="block hover:text-primary transition" href={"/category/Spices %26 Masala"}>মশলা ও মসল্লা</Link>
-              <Link className="block hover:text-primary transition" href={"/category/Sweets %26 Desserts"}>মিষ্টি ও ডেজার্ট</Link>
-              <Link className="block hover:text-primary transition" href={"/category/Snacks %26 Biscuits"}>স্ন্যাকস ও চানাচুর</Link>
-              <Link className="block hover:text-primary transition" href="/shop">সব পণ্য দেখুন →</Link>
-            </div>
-          </div>
-
-          {/* Payment */}
-          <div>
-            <h4 className="text-white font-bold text-sm mb-4">পেমেন্ট ও নিরাপত্তা</h4>
+            <h4 className="text-white font-bold text-base mb-4">কেনাকাটায় নিরাপত্তা</h4>
             <p className="text-sm text-gray-400 mb-3">নিরাপদ পেমেন্ট গেটওয়ে:</p>
             <div className="flex flex-wrap gap-2 mb-4">
               {["বিকাশ", "নগদ", "রকেট", "ভিসা", "মাস্টারকার্ড", "COD"].map(m => (

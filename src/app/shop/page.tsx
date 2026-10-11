@@ -25,7 +25,7 @@ export default function ShopPage() {
   if (sortBy === "name") filtered = [...filtered].sort((a: any, b: any) => a.name.localeCompare(b.name));
 
   return (
-    <main className="min-h-screen pt-[116px] md:pt-[140px] pb-28 md:pb-16 bg-[#F5F7FA]">
+    <main className="min-h-screen pt-[104px] md:pt-[118px] pb-28 md:pb-16 bg-[#F5F7FA]">
       <div className="max-w-[1320px] mx-auto px-4 md:px-6 py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">

@@ -30,14 +30,14 @@ export default function Home() {
 
   if (productsLoading || categoriesLoading) {
     return (
-      <main className="w-full pt-[116px] md:pt-[140px] bg-[#F5F7FA] min-h-screen flex items-center justify-center">
+      <main className="w-full pt-[104px] md:pt-[118px] bg-[#F5F7FA] min-h-screen flex items-center justify-center">
         <Loader2 className="animate-spin text-primary" size={48} />
       </main>
     );
   }
 
   return (
-    <main className="w-full pt-[116px] md:pt-[140px] bg-[#F5F7FA] min-h-screen pb-20 md:pb-0">
+    <main className="w-full pt-[104px] md:pt-[118px] bg-[#F5F7FA] min-h-screen pb-20 md:pb-0">
       {/* Hero Slider */}
       <HeroSlider />
 
