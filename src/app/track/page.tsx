@@ -89,7 +89,7 @@ export default function TrackOrderPage() {
               
               return (
                 <div key={step.id} className="flex md:flex-col items-center gap-4 md:gap-2">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 transition-colors duration-300 z-10 ${isActive ? 'bg-primary border-green-100 text-white shadow-md' : 'bg-white border-gray-100 text-gray-400'}`}>
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center border-4 transition-colors duration-300 z-10 ${isActive ? 'bg-primary border-orange-100 text-white shadow-md' : 'bg-white border-gray-100 text-gray-400'}`}>
                     <Icon size={20} />
                   </div>
                   <div className="text-left md:text-center">

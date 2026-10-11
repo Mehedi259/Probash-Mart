@@ -35,7 +35,7 @@ export default function ProductCard({ product, badge, showDiscount }: ProductCar
     <div className="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col relative overflow-hidden h-full">
       {/* Badge */}
       {(badge || product.isBestSeller) && (
-        <span className="absolute top-2.5 left-0 z-10 text-[10px] font-bold px-2.5 py-1 rounded-r-lg shadow-sm bg-gradient-to-r from-primary to-emerald-600 text-white">
+        <span className="absolute top-2.5 left-0 z-10 text-[10px] font-bold px-2.5 py-1 rounded-r-lg shadow-sm bg-gradient-to-r from-primary to-[#ff8c04] text-white">
           {badge || "⭐ Best Seller"}
         </span>
       )}

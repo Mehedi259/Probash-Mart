@@ -31,7 +31,7 @@ export default function Home() {
   if (productsLoading || categoriesLoading) {
     return (
       <main className="w-full pt-[116px] md:pt-[140px] bg-[#F5F7FA] min-h-screen flex items-center justify-center">
-        <Loader2 className="animate-spin text-emerald-600" size={48} />
+        <Loader2 className="animate-spin text-primary" size={48} />
       </main>
     );
   }

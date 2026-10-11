@@ -96,7 +96,7 @@ export default function CheckoutPage() {
               
               <h2 className="text-xl font-bold mb-4 mt-8 border-b pb-4">Payment Method</h2>
               <div className="space-y-3">
-                <label className="flex items-center gap-3 p-3 border rounded-md cursor-pointer hover:bg-gray-50 bg-green-50 border-primary">
+                <label className="flex items-center gap-3 p-3 border rounded-md cursor-pointer hover:bg-gray-50 bg-orange-50/80 border-primary">
                   <input type="radio" name="payment" value="Credit/Debit" defaultChecked className="text-primary focus:ring-primary h-4 w-4" />
                   <span className="font-medium">Credit / Debit Card</span>
                 </label>
