@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { User, Package, Settings, LogOut, Mail, Lock, ArrowRight } from "lucide-react";
 
@@ -22,9 +23,13 @@ export default function ProfilePage() {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 max-w-md w-full">
           {/* Logo */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <User size={32} className="text-primary" />
-            </div>
+            <Link href="/" className="inline-block mb-3">
+              <img
+                alt="হ্যালো প্রবাস মার্ট"
+                className="h-12 w-auto mx-auto object-contain hover:scale-105 transition"
+                src="/images/logo.png"
+              />
+            </Link>
             <h1 className="text-2xl font-bold text-gray-800">প্রবাসমার্ট অ্যাকাউন্ট</h1>
             <p className="text-gray-500 text-sm mt-1">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
           </div>

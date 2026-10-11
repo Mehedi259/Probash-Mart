@@ -8,10 +8,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <img alt="ProbashMart" className="h-10 w-auto rounded-lg" src="/images/logo.jpg" />
-              <span className="text-white font-bold text-lg">প্রবাসমার্ট</span>
-            </div>
+            <Link href="/" className="inline-flex items-center bg-white px-3 py-1.5 rounded-xl shadow-sm hover:opacity-95 transition">
+              <img alt="হ্যালো প্রবাস মার্ট" className="h-9 w-auto object-contain" src="/images/logo.png" />
+            </Link>
             <p className="text-sm text-gray-400 leading-relaxed">
               প্রবাসী ও দেশীয় গ্রাহকদের জন্য শতভাগ নিরাপদ ও খাঁটি দেশি পণ্যের বিশ্বস্ত প্রতিষ্ঠান।
             </p>

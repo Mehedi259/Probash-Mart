@@ -22,8 +22,12 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "ProbashMart - খাঁটি পণ্যের বিশ্বস্ত ঠিকানা",
-  description: "Bangladeshi Authentic Products",
+  title: "হ্যালো প্রবাস মার্ট - খাঁটি পণ্যের বিশ্বস্ত ঠিকানা",
+  description: "Bangladeshi Authentic Products - হ্যালো প্রবাস মার্ট",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
 };
 
 export const viewport: Viewport = {

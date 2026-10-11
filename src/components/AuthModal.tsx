@@ -32,9 +32,16 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         </button>
 
         <div className="p-8">
-          <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-            {isLogin ? 'Welcome Back' : 'Create an Account'}
-          </h2>
+          <div className="text-center mb-6">
+            <img
+              alt="হ্যালো প্রবাস মার্ট"
+              className="h-10 w-auto mx-auto object-contain mb-3"
+              src="/images/logo.png"
+            />
+            <h2 className="text-2xl font-bold text-gray-800">
+              {isLogin ? 'Welcome Back' : 'Create an Account'}
+            </h2>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (

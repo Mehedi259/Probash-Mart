@@ -36,16 +36,15 @@ export default function Header() {
       {/* Top bar */}
       <div className="h-16 md:h-[68px] max-w-[1320px] mx-auto px-4 md:px-6 flex items-center justify-between gap-3 md:gap-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <img alt="ProbashMart" className="h-9 md:h-10 w-auto object-contain rounded-lg" src="/images/logo.jpg" />
-          <div className="flex flex-col">
-            <span className="text-primary font-bold text-[15px] md:text-[17px] leading-tight tracking-tight">
-              প্রবাসমার্ট
-            </span>
-            <span className="text-[9px] md:text-[10px] text-gray-400 font-medium hidden sm:block">
-              খাঁটি পণ্যের বিশ্বস্ত ঠিকানা
-            </span>
-          </div>
+        <Link href="/" className="flex items-center gap-2.5 shrink-0 py-1" aria-label="হ্যালো প্রবাস মার্ট">
+          <img
+            alt="হ্যালো প্রবাস মার্ট"
+            className="h-9 md:h-11 w-auto object-contain transition-transform hover:scale-[1.02]"
+            src="/images/logo.png"
+          />
+          <span className="text-[10px] text-gray-400 font-medium hidden lg:inline-block border-l border-gray-200 pl-2.5 my-auto">
+            খাঁটি পণ্যের বিশ্বস্ত ঠিকানা
+          </span>
         </Link>
 
         {/* Search */}
